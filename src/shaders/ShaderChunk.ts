@@ -10,6 +10,9 @@ import { basic_material_pars_fragment } from './chunks/basic_material_pars_fragm
 import { lambert_color_pars_fragment } from './chunks/lambert_color_pars_fragment';
 import { lambert_get_material_pars_fragment } from './chunks/lambert_get_material_pars_fragment';
 import { lambert_material_pars_fragment } from './chunks/lambert_material_pars_fragment';
+import { phong_color_pars_fragment } from './chunks/phong_color_pars_fragment';
+import { phong_get_material_pars_fragment } from './chunks/phong_get_material_pars_fragment';
+import { phong_material_pars_fragment } from './chunks/phong_material_pars_fragment';
 import { raymarch_fog_pars_fragment } from './chunks/raymarch_fog_pars_fragment';
 import { raymarch_fog_fragment } from './chunks/raymarch_fog_fragment';
 
@@ -17,6 +20,7 @@ import { raymarch_vert } from './libs/raymarch_vert';
 import { raymarch_normal_frag } from './libs/raymarch_normal_frag';
 import { raymarch_basic_frag } from './libs/raymarch_basic_frag';
 import { raymarch_lambert_frag } from './libs/raymarch_lambert_frag';
+import { raymarch_phong_frag } from './libs/raymarch_phong_frag';
 
 export const ShaderChunk: {[key: string]: string} = {
   raymarch_common_pars_fragment: raymarch_common_pars_fragment,
@@ -31,6 +35,9 @@ export const ShaderChunk: {[key: string]: string} = {
   lambert_color_pars_fragment: lambert_color_pars_fragment,
   lambert_get_material_pars_fragment: lambert_get_material_pars_fragment,
   lambert_material_pars_fragment: lambert_material_pars_fragment,
+  phong_color_pars_fragment: phong_color_pars_fragment,
+  phong_get_material_pars_fragment: phong_get_material_pars_fragment,
+  phong_material_pars_fragment: phong_material_pars_fragment,
   raymarch_fog_pars_fragment: raymarch_fog_pars_fragment,
   raymarch_fog_fragment: raymarch_fog_fragment,
 
@@ -38,4 +45,5 @@ export const ShaderChunk: {[key: string]: string} = {
   raymarch_normal_frag: raymarch_normal_frag,
   raymarch_basic_frag: raymarch_basic_frag,
   raymarch_lambert_frag: raymarch_lambert_frag,
+  raymarch_phong_frag: raymarch_phong_frag,
 };
