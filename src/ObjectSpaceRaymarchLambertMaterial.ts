@@ -23,7 +23,7 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
       Object.assign({}, parameters, {
       uniforms: UniformsUtils.merge([
         parameters.uniforms ? parameters.uniforms : {},
-        // UniformsLib.fog,
+        UniformsLib.fog,
         UniformsLib.lights,
         {
           'diffuse': { value: parameters.color ? parameters.color : new Color(0xffffff) },
@@ -32,6 +32,6 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
       ]),
     }));
     this.lights = true;
-    // this.fog = true;
+    this.fog = true;
   }
 }

@@ -1,4 +1,4 @@
-import { Color, UniformsUtils } from 'three';
+import { Color, UniformsLib, UniformsUtils } from 'three';
 import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from "./ObjectSpaceRaymarchMaterial";
 import { ShaderChunk } from './shaders/ShaderChunk';
 
@@ -21,12 +21,14 @@ export class ObjectSpaceRaymarchBasicMaterial extends ObjectSpaceRaymarchMateria
       overrideChunks,
       Object.assign({}, parameters, {
       uniforms: UniformsUtils.merge([
+        UniformsLib.fog,
         parameters.uniforms ? parameters.uniforms : {},
         {
           'diffuse': { value: parameters.color ? parameters.color : new Color(0xffffff) },
         }
       ]),
     }));
+    this.fog = true;
   }
 
   get color(): Color {

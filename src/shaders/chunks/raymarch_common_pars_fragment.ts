@@ -6,6 +6,7 @@ varying vec3 vNormal;
 
 uniform mat4 modelMatrix;
 uniform mat4 invModelMatrix;
+uniform mat4 modelViewMatrix;
 uniform mat4 mvpMatrix;
 uniform mat3 normalMatrix;
 uniform vec3 size;

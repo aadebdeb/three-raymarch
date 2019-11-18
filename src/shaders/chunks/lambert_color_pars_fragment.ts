@@ -1,6 +1,4 @@
 export const lambert_color_pars_fragment = `
-uniform mat4 modelViewMatrix;
-
 void getLights(vec3 position, vec3 worldNormal, out vec3 lightFront, out vec3 indirectFront) {
   GeometricContext geometry;
   vec3 mvPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
