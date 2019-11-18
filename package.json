@@ -1,5 +1,5 @@
 {
-  "name": "three-objectspaceraymarching",
+  "name": "three-raymarch",
   "version": "0.0.0",
   "description": "",
   "main": "cjs/index.js",

@@ -6,7 +6,7 @@ const development = {
   output: {
     path: path.resolve(__dirname, 'umd'),
     filename: 'three-objectspaceraymarching.development.js',
-    library: 'THREE_OSM',
+    library: 'THREE_RAYMARCH',
     libraryTarget: 'umd',
   },
   module: {
@@ -34,7 +34,7 @@ const production = {
   output: {
     path: path.resolve(__dirname, 'umd'),
     filename: 'three-objectspaceraymarching.production.js',
-    library: 'THREE_OSM',
+    library: 'THREE_RAYMARCH',
     libraryTarget: 'umd',
   },
   module: {
