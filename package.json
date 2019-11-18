@@ -1,0 +1,33 @@
+{
+  "name": "three-objectspaceraymarching",
+  "version": "0.0.0",
+  "description": "",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "types": "cjs/index.d.ts",
+  "scripts": {
+    "build": "npm run build:cjs && npm run build:esm && npm run build:umd",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:umd": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "three": "^0.110.0"
+  },
+  "peerDependencies": {
+    "three": "^0.110.0"
+  },
+  "files": [
+    "cjs",
+    "esm",
+    "umd"
+  ]
+}

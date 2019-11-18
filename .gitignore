@@ -1,0 +1,6 @@
+node_modules/
+cjs/
+esm/
+umd/
+package-lock.json
+example/
