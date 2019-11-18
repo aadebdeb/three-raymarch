@@ -14,6 +14,7 @@ export const raymarch_lambert_frag = `
 
 void main(void) {
   #include <raymarch_fragment>
+  #include <tonemapping_fragment>
   #include <raymarch_fog_fragment>
 }
 `;
