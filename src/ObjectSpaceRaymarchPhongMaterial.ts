@@ -4,9 +4,9 @@ import { ShaderChunk } from './shaders/ShaderChunk';
 
 export interface ObjectSpaceRaymarchPhongMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
   color?: Color,
-  shininess?: number,
-  specular?: Color,
   emissive?: Color,
+  specular?: Color,
+  shininess?: number,
   getMaterialChunk?: string,
 }
 
@@ -39,4 +39,37 @@ export class ObjectSpaceRaymarchPhongMaterial extends ObjectSpaceRaymarchMateria
     this.lights = true;
     this.fog = true;
   }
+
+  get color(): Color {
+    return this.uniforms['diffuse'].value.clone();
+  }
+
+  set color(color: Color) {
+    this.uniforms['diffuse'].value = color.clone();
+  }
+
+  get emissive(): Color {
+    return this.uniforms['emissive'].value.clone();
+  }
+
+  set emissive(emissive: Color) {
+    this.uniforms['emissive'].value = emissive.clone();
+  }
+
+  get specular(): Color {
+    return this.uniforms['specular'].value.clone();
+  }
+
+  set specular(specular: Color) {
+    this.uniforms['specular'].value = specular.clone();
+  }
+
+  get shininess(): number {
+    return this.uniforms['shininess'].value;
+  }
+
+  set shininess(shininess: number) {
+    this.uniforms['shininess'].value = shininess;
+  }
+
 }

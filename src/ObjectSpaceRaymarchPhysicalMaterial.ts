@@ -49,4 +49,52 @@ export class ObjectSpaceRaymarchPhysicalMaterial extends ObjectSpaceRaymarchMate
     this.fog = true;
   }
 
+  get color(): Color {
+    return this.uniforms['diffuse'].value.clone();
+  }
+
+  set color(color: Color) {
+    this.uniforms['diffuse'].value = color.clone();
+  }
+
+  get emissive(): Color {
+    return this.uniforms['emissive'].value.clone();
+  }
+
+  set emissive(emissive) {
+    this.uniforms['emissive'].value = emissive.clone();
+  }
+
+  get metalness(): number {
+    return this.uniforms['metalness'].value;
+  }
+
+  set metalness(metalness: number) {
+    this.uniforms['metalness'].value = metalness;
+  }
+
+  get roughness(): number {
+    return this.uniforms['roughness'].value;
+  }
+
+  set roughness(roughness: number) {
+    this.uniforms['roughness'].value = roughness;
+  }
+
+  get clarcoatRoughness(): number {
+    return this.uniforms['clearcoatRoughness'].value;
+  }
+
+  set clearcoatRoughness(clearcoatRoughness: number) {
+    this.uniforms['clearcoatRoughness'].value = clearcoatRoughness;
+  }
+
+  get reflectivity(): number {
+    return this.uniforms['reflectivity'].value;
+  }
+
+  set reflectivity(reflectivity: number) {
+    this.uniforms['reflectivity'].value =  reflectivity;
+  }
+
 }

@@ -34,4 +34,20 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
     this.lights = true;
     this.fog = true;
   }
+
+  get color(): Color {
+    return this.uniforms['diffuse'].value.clone();
+  }
+
+  set color(color: Color) {
+    this.uniforms['diffuse'].value = color.clone();
+  }
+
+  get emissive(): Color {
+    return this.uniforms['emissive'].value.clone();
+  }
+
+  set emissive(emissive: Color) {
+    this.uniforms['emissive'].value = emissive.clone();
+  }
 }
