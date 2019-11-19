@@ -4,3 +4,4 @@ export { ObjectSpaceRaymarchBasicMaterial } from './ObjectSpaceRaymarchBasicMate
 export { ObjectSpaceRaymarchLambertMaterial } from './ObjectSpaceRaymarchLambertMaterial';
 export { ObjectSpaceRaymarchPhongMaterial } from './ObjectSpaceRaymarchPhongMaterial';
 export { ObjectSpaceRaymarchStandardMaterial } from './ObjectSpaceRaymarchStandardMaterial';
+export { ObjectSpaceRaymarchPhysicalMaterial } from './ObjectSpaceRaymarchPhysicalMaterial';
