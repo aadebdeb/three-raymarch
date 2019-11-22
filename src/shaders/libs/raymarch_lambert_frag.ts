@@ -1,4 +1,7 @@
 export const raymarch_lambert_frag = `
+uniform vec3 diffuse;
+uniform vec3 emissive;
+
 #include <common>
 #include <packing>
 #include <bsdfs>

@@ -50,7 +50,7 @@ export class ObjectSpaceRaymarchPhysicalMaterial extends ObjectSpaceRaymarchMate
   }
 
   get color(): Color {
-    return this.uniforms['diffuse'].value.clone();
+    return this.uniforms['diffuse'].value;
   }
 
   set color(color: Color) {
@@ -58,7 +58,7 @@ export class ObjectSpaceRaymarchPhysicalMaterial extends ObjectSpaceRaymarchMate
   }
 
   get emissive(): Color {
-    return this.uniforms['emissive'].value.clone();
+    return this.uniforms['emissive'].value;
   }
 
   set emissive(emissive) {
@@ -81,7 +81,15 @@ export class ObjectSpaceRaymarchPhysicalMaterial extends ObjectSpaceRaymarchMate
     this.uniforms['roughness'].value = roughness;
   }
 
-  get clarcoatRoughness(): number {
+  get clearcoat(): number {
+    return this.uniforms['clearcoat'].value;
+  }
+
+  set clearcoat(clearcoat: number) {
+    this.uniforms['clearcoat'].value = clearcoat;
+  }
+
+  get clearcoatRoughness(): number {
     return this.uniforms['clearcoatRoughness'].value;
   }
 

@@ -1,5 +1,11 @@
 import { WebGLRenderer, Scene, Camera, Geometry, BufferGeometry, Material, Group, Mesh, BoxBufferGeometry, Vector3, Matrix4 } from 'three';
 import { ObjectSpaceRaymarchMaterial} from './ObjectSpaceRaymarchMaterial';
+import { ObjectSpaceRaymarchBasicMaterial } from './ObjectSpaceRaymarchBasicMaterial';
+
+export interface ObjectSpaceRaymarchParameters {
+  material?: ObjectSpaceRaymarchMaterial,
+  size?: Vector3,
+}
 
 export class ObjectSpaceRaymarch extends Mesh {
   private static geometry = new BoxBufferGeometry(1.0, 1.0, 1.0);
@@ -11,9 +17,12 @@ export class ObjectSpaceRaymarch extends Mesh {
   onBeforeRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera, geometry: Geometry | BufferGeometry, material: Material, group: Group) => void;
   private invModelMatrix: Matrix4;
   private mvpMatrix: Matrix4;
-  constructor(material: ObjectSpaceRaymarchMaterial) {
-      super(ObjectSpaceRaymarch.geometry, material);
-    this.size = new Vector3(4.5, 2.5, 2.5);
+  constructor({
+    material = new ObjectSpaceRaymarchBasicMaterial(),
+    size = new Vector3(1, 1, 1),
+  }: ObjectSpaceRaymarchParameters = {}) {
+    super(ObjectSpaceRaymarch.geometry, material);
+    this.size = size;
     this.invModelMatrix = new Matrix4();
     this.mvpMatrix = new Matrix4();
     this.onBeforeRender = (_, __, camera) => {

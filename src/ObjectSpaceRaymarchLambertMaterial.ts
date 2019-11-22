@@ -36,7 +36,7 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
   }
 
   get color(): Color {
-    return this.uniforms['diffuse'].value.clone();
+    return this.uniforms['diffuse'].value;
   }
 
   set color(color: Color) {
@@ -44,7 +44,7 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
   }
 
   get emissive(): Color {
-    return this.uniforms['emissive'].value.clone();
+    return this.uniforms['emissive'].value;
   }
 
   set emissive(emissive: Color) {

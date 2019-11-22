@@ -32,7 +32,7 @@ export class ObjectSpaceRaymarchBasicMaterial extends ObjectSpaceRaymarchMateria
   }
 
   get color(): Color {
-    return this.uniforms['diffuse'].value.clone();
+    return this.uniforms['diffuse'].value;
   }
 
   set color(color: Color) {

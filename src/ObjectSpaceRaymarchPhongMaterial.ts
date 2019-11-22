@@ -41,7 +41,7 @@ export class ObjectSpaceRaymarchPhongMaterial extends ObjectSpaceRaymarchMateria
   }
 
   get color(): Color {
-    return this.uniforms['diffuse'].value.clone();
+    return this.uniforms['diffuse'].value;
   }
 
   set color(color: Color) {
@@ -49,7 +49,7 @@ export class ObjectSpaceRaymarchPhongMaterial extends ObjectSpaceRaymarchMateria
   }
 
   get emissive(): Color {
-    return this.uniforms['emissive'].value.clone();
+    return this.uniforms['emissive'].value;
   }
 
   set emissive(emissive: Color) {
@@ -57,7 +57,7 @@ export class ObjectSpaceRaymarchPhongMaterial extends ObjectSpaceRaymarchMateria
   }
 
   get specular(): Color {
-    return this.uniforms['specular'].value.clone();
+    return this.uniforms['specular'].value;
   }
 
   set specular(specular: Color) {
