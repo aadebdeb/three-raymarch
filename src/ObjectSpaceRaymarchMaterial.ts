@@ -54,6 +54,8 @@ export class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
           'invModelMatrix': { value: null },
           'mvpMatrix': { value: null },
           'size': { value: null },
+          'isOrthographic': { value: false },
+          'cameraDirection': { value: null },
         }
       ]),
       defines: {

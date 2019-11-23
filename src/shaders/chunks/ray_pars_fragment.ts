@@ -4,6 +4,27 @@ struct Ray {
   vec3 direction;
 };
 
+Ray createPerspectiveRay() {
+  return Ray(
+    cameraPosition,
+    normalize(vPosition - cameraPosition)
+  );
+}
+
+Ray createOrthographicRay() {
+  return Ray(
+    vPosition + dot(vPosition - cameraPosition, cameraDirection) * cameraDirection,
+    cameraDirection
+  );
+}
+
+Ray createRay() {
+  if (isOrthographic) {
+    return createOrthographicRay();
+  }
+  return createPerspectiveRay();
+}
+
 Ray convertRayFromWorldToObject(Ray ray) {
   vec3 origin = (invModelMatrix * vec4(ray.origin, 1.0)).xyz;
   vec3 direction = normalize((invModelMatrix * vec4(ray.direction, 0.0)).xyz);

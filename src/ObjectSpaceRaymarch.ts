@@ -32,6 +32,9 @@ export class ObjectSpaceRaymarch extends Mesh {
       this.mvpMatrix.premultiply(camera.projectionMatrix);
       material.uniforms['mvpMatrix'].value = this.mvpMatrix;
       material.uniforms['size'].value = this.size;
+      const isOrthographic = !!(camera as any).isOrthographicCamera;
+      material.uniforms['isOrthographic'].value = isOrthographic;
+      material.uniforms['cameraDirection'].value = new Vector3(0, 0, 1).applyMatrix4(camera.matrixWorld).normalize();
     };
   }
 

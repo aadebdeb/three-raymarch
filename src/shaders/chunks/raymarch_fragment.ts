@@ -1,8 +1,5 @@
 export const raymarch_fragment = `
-Ray ray = convertRayFromWorldToObject(Ray(
-  cameraPosition,
-  normalize(vPosition - cameraPosition)
-));
+Ray ray = convertRayFromWorldToObject(createRay());
 
 vec2 range = getRaymarchRange(ray);
 float t;
