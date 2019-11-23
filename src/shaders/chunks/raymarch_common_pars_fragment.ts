@@ -1,6 +1,4 @@
 export const raymarch_common_pars_fragment: string = `
-#extension GL_EXT_frag_depth : enable
-
 varying vec3 vPosition;
 varying vec3 vRaymarchNormal;
 

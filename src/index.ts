@@ -5,3 +5,4 @@ export { ObjectSpaceRaymarchLambertMaterial } from './ObjectSpaceRaymarchLambert
 export { ObjectSpaceRaymarchPhongMaterial } from './ObjectSpaceRaymarchPhongMaterial';
 export { ObjectSpaceRaymarchStandardMaterial } from './ObjectSpaceRaymarchStandardMaterial';
 export { ObjectSpaceRaymarchPhysicalMaterial } from './ObjectSpaceRaymarchPhysicalMaterial';
+export { ObjectSpaceRaymarchDepthMaterial } from './ObjectSpaceRaymarchDepthMaterial';

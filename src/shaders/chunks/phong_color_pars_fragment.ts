@@ -47,19 +47,19 @@ vec3 getColor(vec3 position, vec3 worldNormal) {
     }
   #endif
 
-  #if (NUM_DIR_LIGHTS > 0) && defined(RE_Direct)
-    DirectionalLight directionalLight;
-    #pragma unroll_loop
-    for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
-      directionalLight = directionalLights[ i ];
-      getDirectionalDirectLightIrradiance(directionalLight, geometry, directLight);
-      #if defined(USE_SHADOWMAP) && (UNROLLED_LOOP_INDEX < NUM_DIR_LIGHT_SHADOWS)
-      directLight.color *= all(bvec3(directionalLight.shadow, directLight.visible, receiveShadow)) ? getShadow(directionalShadowMap[ i ], directionalLight.shadowMapSize, directionalLight.shadowBias, directionalLight.shadowRadius, vDirectionalShadowCoord[ i ]) : 1.0;
-      #endif
-      RE_Direct(directLight, geometry, material, reflectedLight);
-    }
-  #endif
 
+  #if ( NUM_DIR_LIGHTS > 0 ) && defined( RE_Direct )
+  DirectionalLight directionalLight;
+  #pragma unroll_loop
+  for ( int i = 0; i < NUM_DIR_LIGHTS; i ++ ) {
+    directionalLight = directionalLights[ i ];
+    getDirectionalDirectLightIrradiance( directionalLight, geometry, directLight );
+    #if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_DIR_LIGHT_SHADOWS )
+    directLight.color *= all( bvec3( directionalLight.shadow, directLight.visible, receiveShadow ) ) ? getShadow( directionalShadowMap[ i ], directionalLight.shadowMapSize, directionalLight.shadowBias, directionalLight.shadowRadius, vDirectionalShadowCoord[ i ] ) : 1.0;
+    #endif
+    RE_Direct( directLight, geometry, material, reflectedLight );
+  }
+#endif
   
   #if (NUM_RECT_AREA_LIGHTS > 0) && defined(RE_Direct_RectArea)
     RectAreaLight rectAreaLight;

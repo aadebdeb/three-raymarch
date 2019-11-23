@@ -9,6 +9,7 @@ uniform float shininess;
 #include <bsdfs>
 #include <lights_pars_begin>
 #include <lights_phong_pars_fragment>
+#include <shadowmap_pars_fragment>
 #include <raymarch_fog_pars_fragment>
 #include <raymarch_common_pars_fragment>
 #include <ray_pars_fragment>
