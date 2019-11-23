@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ObjectSpaceRaymarchDepthMaterial</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
+    <script src="../umd/three-objectspaceraymarching.development.js"></script>
+    <script>
+
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x444444);
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10);
+
+      const material = new THREE_RAYMARCH.ObjectSpaceRaymarchDepthMaterial({
+        getDistanceChunk: `
+          float sdSphere(vec3 p, float r) {
+            return length(p) - r;
+          }
+
+          float getDistance(vec3 p) {
+            p = mod(p, 0.5) - 0.25;
+            return sdSphere(p, 0.1);
+          }`,  
+      });
+
+      const raymarch = new THREE_RAYMARCH.ObjectSpaceRaymarch({
+        material: material,
+        size: new THREE.Vector3(2, 2, 2)
+      });
+      scene.add(raymarch);
+
+      camera.position.z = 5.0;
+
+      const parameters = {
+        raymarch: {
+          sizeX: 1.0,
+          sizeY: 1.0,
+          sizeZ: 1.0,
+        },
+        material: {
+          transparent: material.transparent,
+          opacity: material.opacity,
+        },
+      }
+
+      const gui = new dat.GUI();
+      const sizeFolder = gui.addFolder('ObjectSpaceRaymarch');
+      sizeFolder.add(parameters.raymarch, 'sizeX', 0.0, 5.0).onChange((v) => raymarch.size.x = v);
+      sizeFolder.add(parameters.raymarch, 'sizeY', 0.0, 5.0).onChange((v) => raymarch.size.y = v);
+      sizeFolder.add(parameters.raymarch, 'sizeZ', 0.0, 5.0).onChange((v) => raymarch.size.z = v);
+      const materialFolder = gui.addFolder('ObjectSpaceRaymarchMaterial');
+      materialFolder.add(parameters.material, 'transparent').onChange((v) => material.transparent = v);
+      materialFolder.add(parameters.material, 'opacity', 0, 1).onChange((v) => material.opacity = v);
+
+      function animate() {
+        requestAnimationFrame(animate);
+        raymarch.rotation.x += 0.005;
+        raymarch.rotation.y += 0.005;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+    </script>
+  </body>
+</html>
