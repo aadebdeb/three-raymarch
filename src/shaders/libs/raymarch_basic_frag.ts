@@ -1,4 +1,6 @@
 export const raymarch_basic_frag = `
+uniform vec3 diffuse;
+
 #include <raymarch_fog_pars_fragment>
 #include <raymarch_common_pars_fragment>
 #include <ray_pars_fragment>

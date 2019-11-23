@@ -26,6 +26,7 @@ export interface ObjectSpaceRaymarchMaterialParameters {
   differentiateDistance?: number,
   distanceScale?: number,
   uniforms?: { [uniform: string]: IUniform },
+  opacity?: number,
 }
 
 export class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
@@ -37,6 +38,7 @@ export class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
       hitDistance = 0.001,
       differentiateDistance = 0.001,
       distanceScale = 1.0,
+      opacity = 1.0,
       uniforms = {}
     }: ObjectSpaceRaymarchMaterialParameters = {}) {
     if (distanceScale <= 0.0) {
@@ -48,6 +50,7 @@ export class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
       uniforms: UniformsUtils.merge([
         uniforms,
         {
+          'opacity': { value: opacity },
           'hitDistance': { value: hitDistance },
           'differentiateDistance': { value: differentiateDistance },
           'distanceScale': { value: distanceScale },
@@ -99,6 +102,22 @@ export class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
       throw new Error('ObjectSpaceRaymarchMaterial: distanceScale must be bigger than 0.');
     }
     this.uniforms['distanceScale'].value = distanceScale;
+  }
+
+  /**
+   * @override
+   */
+  get opacity(): number {
+    return this.uniforms['opacity'].value;
+  }
+
+  /**
+   * @override
+   */
+  set opacity(opacity: number) {
+    if (this.uniforms) {
+      this.uniforms['opacity'].value = opacity;
+    }
   }
 
 }
