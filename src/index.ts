@@ -7,3 +7,4 @@ export { ObjectSpaceRaymarchStandardMaterial } from './ObjectSpaceRaymarchStanda
 export { ObjectSpaceRaymarchPhysicalMaterial } from './ObjectSpaceRaymarchPhysicalMaterial';
 export { ObjectSpaceRaymarchDepthMaterial } from './ObjectSpaceRaymarchDepthMaterial';
 export { ObjectSpaceRaymarchMatcapMaterial } from './ObjectSpaceRaymarchMatcapMaterial';
+export { ObjectSpaceRaymarchRawMaterial } from './ObjectSpaceRaymarchRawMaterial';
