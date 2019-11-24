@@ -16,10 +16,7 @@ function resolveIncludes(fragmentShader: string, overrideChunks: {[key: string]:
 }
 
 export interface ObjectSpaceRaymarchMaterialParameters {
-  fragmentShader?: string,
-  overrideChunks?: {[key: string]: string},
   getDistanceChunk?: string,
-  postProcessChunk?: string,
   maxRaymarchIteration?: number,
   hitDistance?: number,
   differentiateDistance?: number,
