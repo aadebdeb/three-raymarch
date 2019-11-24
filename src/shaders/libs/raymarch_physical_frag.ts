@@ -43,9 +43,13 @@ void main(void) {
 
   float roughnessFactor = physicalMaterial.roughness;
   float metalnessFactor = physicalMaterial.metalness;
-  float reflectivity = physicalMaterial.reflectivity;
-  float clearcoat = physicalMaterial.clearcoat;
-  float clearcoatRoughness = physicalMaterial.clearcoatRoughness;
+  #ifdef REFLECTIVITY
+    float reflectivity = physicalMaterial.reflectivity;
+  #endif
+  #ifdef CLEARCOAT
+    float clearcoat = physicalMaterial.clearcoat;
+    float clearcoatRoughness = physicalMaterial.clearcoatRoughness;
+  #endif
 
   vec3 worldNormal = normal;
   #include <lights_physical_fragment>

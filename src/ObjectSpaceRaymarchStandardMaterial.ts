@@ -17,10 +17,10 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
       overrideChunks.distance_pars_fragment = parameters.getDistanceChunk;
     }
     if (parameters.getMaterialChunk) {
-      overrideChunks.standard_get_material_pars_fragment = parameters.getMaterialChunk;
+      overrideChunks.physical_get_material_pars_fragment = parameters.getMaterialChunk;
     }
     super(
-      ShaderChunk.raymarch_standard_frag,
+      ShaderChunk.raymarch_physical_frag,
       overrideChunks,
       Object.assign({}, parameters, {
         uniforms: UniformsUtils.merge([
