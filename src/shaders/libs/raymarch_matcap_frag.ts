@@ -9,7 +9,6 @@ uniform sampler2D matcap;
 #include <ray_pars_fragment>
 #include <distance_pars_fragment>
 #include <raymarch_pars_fragment>
-#include <matcap_color_pars_fragment>
 
 void main(void) {
   #include <raymarch_fragment>
