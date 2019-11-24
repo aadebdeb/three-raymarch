@@ -10,10 +10,21 @@ uniform vec3 diffuse;
 #include <raymarch_pars_fragment>
 #include <basic_material_pars_fragment>
 #include <basic_get_material_pars_fragment>
-#include <basic_color_pars_fragment>
 
 void main(void) {
   #include <raymarch_fragment>
+
+  vec3 worldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+  ObjectSpaceRaymarchBasicMaterial material = getMaterial(position, worldPosition, normal);
+
+  vec3 outgoingLight = material.diffuse;
+
+  vec3 worldNormal = normal; // TODO: 
+  #include <envmap_fragment>
+
+  gl_FragColor = vec4(outgoingLight, opacity);
+
+  #include <raymarch_write_depth_fragment>
   #include <tonemapping_fragment>
   #include <raymarch_fog_fragment>
 }

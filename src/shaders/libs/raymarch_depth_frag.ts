@@ -6,6 +6,8 @@ export const raymarch_depth_frag = `
 #include <raymarch_pars_fragment>
 
 void main(void) {
-  #include <depth_raymarch_fragment>
+  #include <raymarch_fragment>
+  #include <raymarch_write_depth_fragment>
+  gl_FragColor = vec4(vec3(1.0 - gl_FragDepthEXT), opacity);
 }
 `;

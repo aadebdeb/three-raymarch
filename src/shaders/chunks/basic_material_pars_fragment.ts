@@ -1,5 +1,5 @@
 export const basic_material_pars_fragment = `
 struct ObjectSpaceRaymarchBasicMaterial {
-  vec3 color;
+  vec3 diffuse;
 };
 `;

@@ -41,7 +41,7 @@
             p = mod(p, 0.5) - 0.25;
             return sdSphere(p, 0.1);
           }`,
-          matcap: matcaps.none,
+          matcap: matcaps.porcelainWhite,
       });
 
       const raymarch = new THREE_RAYMARCH.ObjectSpaceRaymarch({
@@ -67,7 +67,7 @@
         },
         matcapMaterial: {
           color: material.color.getHex(),
-          matcap: 'none',
+          matcap: 'porcelainWhite',
         },
       }
 

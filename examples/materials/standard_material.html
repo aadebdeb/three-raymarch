@@ -96,7 +96,7 @@
       materialFolder.add(parameters.material, 'maxRaymarchIteration', 8, 256).onChange((v) => material.maxRaymarchIteration = v);
       materialFolder.add(parameters.material, 'hitDistance', 0.0, 0.1).onChange((v) => material.hitDistance = v);
       materialFolder.add(parameters.material, 'differentiateDistance', 0.0001, 0.1).onChange((v) => material.differentiateDistance);
-      const standardMaterialFolder = gui.addFolder('ObjectSpaceRaymarchPhongMaterial');
+      const standardMaterialFolder = gui.addFolder('ObjectSpaceRaymarchStandardMaterial');
       standardMaterialFolder.addColor(parameters.standardMaterial, 'color').onChange((v) => material.color.setHex(v));
       standardMaterialFolder.addColor(parameters.standardMaterial, 'emissive').onChange((v) => material.emissive.setHex(v));
       standardMaterialFolder.add(parameters.standardMaterial, 'roughness', 0.0, 1.0).onChange((v) => material.roughness = v);

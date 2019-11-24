@@ -28,6 +28,9 @@ export class ObjectSpaceRaymarchMatcapMaterial extends ObjectSpaceRaymarchMateri
         ]),
       }),
     );
+    if (parameters.matcap) {
+      this.matcap = parameters.matcap;
+    } 
   }
 
   get color(): Color {
