@@ -1,6 +1,7 @@
 export const basic_color_pars_fragment = `
 vec3 getColor(vec3 position, vec3 worldNormal) {
-  ObjectSpaceRaymarchBasicMaterial material = getMaterial(position, worldNormal);
+  vec3 worldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+  ObjectSpaceRaymarchBasicMaterial material = getMaterial(position, worldPosition, worldNormal);
   return material.color;
 }
 `;

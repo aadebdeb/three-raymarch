@@ -1,5 +1,5 @@
 export const physical_get_material_pars_fragment = `
-ObjectSpaceRaymarchPhysicalMaterial getMaterial(vec3 position, vec3 worldNormal) {
+ObjectSpaceRaymarchPhysicalMaterial getMaterial(vec3 position, vec3 worldPosition, vec3 worldNormal) {
   ObjectSpaceRaymarchPhysicalMaterial material;
   material.diffuse = diffuse;
   material.emissive = emissive;

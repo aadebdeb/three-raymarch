@@ -1,6 +1,7 @@
 export const phong_color_pars_fragment = `
 vec3 getColor(vec3 position, vec3 worldNormal) {
-  ObjectSpaceRaymarchPhongMaterial raymarchMat = getMaterial(position, worldNormal);
+  vec3 worldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+  ObjectSpaceRaymarchPhongMaterial raymarchMat = getMaterial(position, worldPosition, worldNormal);
 
   ReflectedLight reflectedLight = ReflectedLight(vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0));
   vec3 totalEmissiveRadiance = raymarchMat.emissive;

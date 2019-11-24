@@ -48,7 +48,8 @@ void getLights(vec3 position, vec3 worldNormal, out vec3 lightFront, out vec3 in
 }
 
 vec3 getColor(vec3 position, vec3 worldNormal) {
-  ObjectSpaceRaymarchLambertMaterial material = getMaterial(position, worldNormal);
+  vec3 worldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+  ObjectSpaceRaymarchLambertMaterial material = getMaterial(position, worldPosition, worldNormal);
 
   vec3 lightFront, indirectFront;
   getLights(position, worldNormal, lightFront, indirectFront);
