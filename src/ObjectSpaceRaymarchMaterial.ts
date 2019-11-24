@@ -19,7 +19,6 @@ export interface ObjectSpaceRaymarchMaterialParameters {
   fragmentShader?: string,
   overrideChunks?: {[key: string]: string},
   getDistanceChunk?: string,
-  getColorChunk?: string,
   postProcessChunk?: string,
   maxRaymarchIteration?: number,
   hitDistance?: number,

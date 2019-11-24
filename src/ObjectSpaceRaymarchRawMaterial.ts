@@ -1,7 +1,9 @@
 import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from './ObjectSpaceRaymarchMaterial';
 import { ShaderChunk } from './shaders/ShaderChunk';
 
-export interface ObjectSpaceRaymarchRawMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {}
+export interface ObjectSpaceRaymarchRawMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
+  getColorChunk?: string,
+}
 
 export class ObjectSpaceRaymarchRawMaterial extends ObjectSpaceRaymarchMaterial {
   constructor(parameters: ObjectSpaceRaymarchRawMaterialParameters = {}) {
