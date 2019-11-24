@@ -1,7 +1,9 @@
 export const envmap_pars_fragment = `
 #ifdef USE_ENVMAP
 
-  uniform float reflectivity;
+  #ifndef REFLECTIVITY
+    uniform float reflectivity;
+  #endif
   uniform float refractionRatio;
 
 #endif

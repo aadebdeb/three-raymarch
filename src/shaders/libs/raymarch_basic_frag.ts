@@ -20,6 +20,7 @@ void main(void) {
   vec3 outgoingLight = material.diffuse;
 
   vec3 worldNormal = normal; // TODO: 
+  float specularStrength = 1.0;
   #include <envmap_fragment>
 
   gl_FragColor = vec4(outgoingLight, opacity);

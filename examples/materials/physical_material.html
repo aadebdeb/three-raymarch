@@ -13,8 +13,30 @@
   <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
-    <script src="../../umd/three-objectspaceraymarching.production.js"></script>
+    <script src="../../umd/three-objectspaceraymarching.development.js"></script>
     <script>
+
+      const cubeTextureLoader = new THREE.CubeTextureLoader();
+
+      const envMaps = (function() {
+        const path = '../textures/cube/SwedishRoyalCastle/';
+        const format = '.jpg';
+        const urls = [
+          path + 'px' + format, path + 'nx' + format,
+          path + 'py' + format, path + 'ny' + format,
+          path + 'pz' + format, path + 'nz' + format
+        ];
+        const reflectionCube = cubeTextureLoader.load(urls);
+        reflectionCube.format = THREE.RGBFormat;
+        const refractionCube = cubeTextureLoader.load(urls);
+        refractionCube.mapping - THREE.CubeRefractionMapping;
+        refractionCube.format = THREE.RGBFormat;
+        return {
+          none: null,
+          reflection: reflectionCube,
+          refraction: refractionCube,
+        };
+      }());
 
       const renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -85,9 +107,11 @@
           emissive: material.emissive.getHex(),
           roughness: material.roughness,
           metalness: material.metalness,
-          reflectivity: material.reflectivity,
           clearcoat: material.clearcoat,
           clearcoatRoughness: material.clearcoatRoughness,
+          reflectivity: material.reflectivity,
+          envMaps: 'none',
+          combine: 'multiply',
         },
       }
 
@@ -107,9 +131,30 @@
       physialMaterialFolder.addColor(parameters.physicalMaterial, 'emissive').onChange((v) => material.emissive.setHex(v));
       physialMaterialFolder.add(parameters.physicalMaterial, 'roughness', 0.0, 1.0).onChange((v) => material.roughness = v);
       physialMaterialFolder.add(parameters.physicalMaterial, 'metalness', 0.0, 1.0).onChange((v) => material.metalness = v);
-      physialMaterialFolder.add(parameters.physicalMaterial, 'reflectivity', 0.0, 1.0).onChange((v) => material.reflectivity = v);
       physialMaterialFolder.add(parameters.physicalMaterial, 'clearcoat', 0.0, 1.0).onChange((v) => material.clearcoat = v);
       physialMaterialFolder.add(parameters.physicalMaterial, 'clearcoatRoughness', 0.0, 1.0).onChange((v) => material.clearcoatRoughness = v);
+      physialMaterialFolder.add(parameters.physicalMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
+      physialMaterialFolder.add(parameters.physicalMaterial, 'envMaps', ['none', 'reflection', 'refraction']).onChange((v) => {
+        if (v === 'none') {
+          material.envMaps = envMaps.none;
+        } else if (v === 'reflection') {
+          material.envMap = envMaps.reflection;
+        } else if (v === 'refraction') {
+          material.envMap = envMaps.refraction;
+        }
+      });
+      physialMaterialFolder.add(parameters.physicalMaterial, 'combine', ['multiply', 'mix', 'add']).onChange((v) => {
+        if (v === 'multiply') {
+          material.combine = THREE.MultiplyOperation;
+          material.needsUpdate = true;
+        } else if (v === 'mix') {
+          material.combine = THREE.MixOperation;
+          material.needsUpdate = true;
+        } else if (v === 'add') {
+          material.combine = THREE.AddOperation;
+          material.needsUpdate = true;
+        }
+      });
 
       function animate() {
         requestAnimationFrame(animate);

@@ -12,6 +12,8 @@ uniform float shininess;
 #include <shadowmap_pars_fragment>
 #include <raymarch_fog_pars_fragment>
 #include <raymarch_common_pars_fragment>
+#include <envmap_common_pars_fragment>
+#include <envmap_pars_fragment>
 #include <ray_pars_fragment>
 #include <distance_pars_fragment>
 #include <raymarch_pars_fragment>
@@ -38,6 +40,8 @@ void main(void) {
   #include <lights_fragment_end>
 
   vec3 outgoingLight = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;
+
+  #include <envmap_fragment>
 
   gl_FragColor = vec4(outgoingLight, diffuseColor.a);
 

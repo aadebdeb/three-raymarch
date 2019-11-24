@@ -16,6 +16,29 @@
     <script src="../../umd/three-objectspaceraymarching.development.js"></script>
     <script>
 
+
+      const cubeTextureLoader = new THREE.CubeTextureLoader();
+
+      const envMaps = (function() {
+        const path = '../textures/cube/SwedishRoyalCastle/';
+        const format = '.jpg';
+        const urls = [
+          path + 'px' + format, path + 'nx' + format,
+          path + 'py' + format, path + 'ny' + format,
+          path + 'pz' + format, path + 'nz' + format
+        ];
+        const reflectionCube = cubeTextureLoader.load(urls);
+        reflectionCube.format = THREE.RGBFormat;
+        const refractionCube = cubeTextureLoader.load(urls);
+        refractionCube.mapping - THREE.CubeRefractionMapping;
+        refractionCube.format = THREE.RGBFormat;
+        return {
+          none: null,
+          reflection: reflectionCube,
+          refraction: refractionCube,
+        };
+      }());
+
       const renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
@@ -79,6 +102,9 @@
           emissive: material.emissive.getHex(),
           specular: material.specular.getHex(),
           shininess: material.shininess,
+          reflectivity: material.reflectivity,
+          envMaps: 'none',
+          combine: 'multiply',
         },
       }
 
@@ -98,6 +124,28 @@
       phongMaterialFolder.addColor(parameters.phongMaterial, 'emissive').onChange((v) => material.emissive.setHex(v));
       phongMaterialFolder.addColor(parameters.phongMaterial, 'specular').onChange((v) => material.specular.setHex(v));
       phongMaterialFolder.add(parameters.phongMaterial, 'shininess', 0, 100).onChange((v) => material.shininess = v);
+      phongMaterialFolder.add(parameters.phongMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
+      phongMaterialFolder.add(parameters.phongMaterial, 'envMaps', ['none', 'reflection', 'refraction']).onChange((v) => {
+        if (v === 'none') {
+          material.envMaps = envMaps.none;
+        } else if (v === 'reflection') {
+          material.envMap = envMaps.reflection;
+        } else if (v === 'refraction') {
+          material.envMap = envMaps.refraction;
+        }
+      });
+      phongMaterialFolder.add(parameters.phongMaterial, 'combine', ['multiply', 'mix', 'add']).onChange((v) => {
+        if (v === 'multiply') {
+          material.combine = THREE.MultiplyOperation;
+          material.needsUpdate = true;
+        } else if (v === 'mix') {
+          material.combine = THREE.MixOperation;
+          material.needsUpdate = true;
+        } else if (v === 'add') {
+          material.combine = THREE.AddOperation;
+          material.needsUpdate = true;
+        }
+      });
 
       function animate() {
         requestAnimationFrame(animate);

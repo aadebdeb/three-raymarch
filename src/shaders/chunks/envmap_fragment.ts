@@ -18,8 +18,6 @@ export const envmap_fragment = `
 
   envColor = envMapTexelToLinear(envColor);
 
-  float specularStrength = 1.0;
-
   #ifdef ENVMAP_BLENDING_MULTIPLY
     outgoingLight = mix(outgoingLight, outgoingLight * envColor.xyz, specularStrength * reflectivity);
   #elif defined(ENVMAP_BLENDING_MIX)

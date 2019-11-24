@@ -1,4 +1,4 @@
-import { Color, UniformsUtils, UniformsLib } from 'three';
+import { Color, CubeTexture, UniformsUtils, UniformsLib, MultiplyOperation } from 'three';
 import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from './ObjectSpaceRaymarchMaterial';
 import { ShaderChunk } from './shaders/ShaderChunk';
 
@@ -8,9 +8,14 @@ export interface ObjectSpaceRaymarchStandardMaterialParameters extends ObjectSpa
   metalness?: number,
   roughness?: number,
   getMaterialChunk?: string,
+  envMap?: CubeTexture,
+  reflectivity?: number,
+  refractionRatio?: number,
+  combine?: number,
 }
 
 export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMaterial {
+  combine: number;
   constructor(parameters: ObjectSpaceRaymarchStandardMaterialParameters = {}) {
     const overrideChunks: {[key: string]: string} = {};
     if (parameters.getDistanceChunk) {
@@ -32,10 +37,16 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
             'emissive': { value: parameters.emissive ? parameters.emissive : new Color(0x000000) },
             'metalness': { value: parameters.metalness !== undefined ? parameters.metalness : 0.5 },
             'roughness': { value: parameters.roughness !== undefined ? parameters.roughness : 0.5 },
+            // override UniformsLib.envmap
+            'envMap': { value: parameters.envMap ? parameters.envMap : null },
+            'reflectivity': { value: parameters.reflectivity !== undefined ? parameters.reflectivity : 1.0 },
+            'refractionRatio': { value: parameters.refractionRatio !== undefined ? parameters.refractionRatio : 0.98 },
           }
         ]),
       }),
     );
+    this.envMap = parameters.envMap ? parameters.envMap : null;
+    this.combine = parameters.combine ? parameters.combine : MultiplyOperation;
     this.lights = true;
     this.fog = true;
   }
@@ -70,6 +81,32 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
 
   set roughness(roughness: number) {
     this.uniforms['roughness'].value = roughness;
+  }
+
+  
+  get envMap(): CubeTexture | null {
+    return this.uniforms['envMap'].value;
+  }
+
+  set envMap(envMap: CubeTexture | null) {
+    this.uniforms['envMap'].value = envMap;
+    this.needsUpdate = true;
+  }
+
+  get reflectivity(): number {
+    return this.uniforms['reflectivity'].value;
+  }
+
+  set reflectivity(reflectivity: number) {
+    this.uniforms['reflectivity'].value = reflectivity;
+  }
+
+  get refractionRatio(): number {
+    return this.uniforms['refractionRatio'].value;
+  }
+
+  set refractionRatio(refractionRatio: number) {
+    this.uniforms['refractionRatio'].value = refractionRatio;
   }
 
 }
