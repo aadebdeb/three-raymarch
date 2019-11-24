@@ -16,6 +16,28 @@
     <script src="../../umd/three-objectspaceraymarching.development.js"></script>
     <script>
 
+      const cubeTextureLoader = new THREE.CubeTextureLoader();
+
+      const envMaps = (function() {
+        const path = '../textures/cube/SwedishRoyalCastle/';
+        const format = '.jpg';
+        const urls = [
+          path + 'px' + format, path + 'nx' + format,
+          path + 'py' + format, path + 'ny' + format,
+          path + 'pz' + format, path + 'nz' + format
+        ];
+        const reflectionCube = cubeTextureLoader.load(urls);
+        reflectionCube.format = THREE.RGBFormat;
+        const refractionCube = cubeTextureLoader.load(urls);
+        refractionCube.mapping - THREE.CubeRefractionMapping;
+        refractionCube.format = THREE.RGBFormat;
+        return {
+          none: null,
+          reflection: reflectionCube,
+          refraction: refractionCube,
+        };
+      }());
+
       const renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
@@ -60,6 +82,9 @@
         },
         basicMaterial: {
           color: material.color.getHex(),
+          reflectivity: material.reflectivity,
+          envMaps: 'none',
+          combine: 'multiply',
         },
       }
 
@@ -76,6 +101,28 @@
       materialFolder.add(parameters.material, 'differentiateDistance', 0.0001, 0.1).onChange((v) => material.differentiateDistance);
       const basicMaterialFolder = gui.addFolder('ObjectSpaceRaymarchBasicMaterial');
       basicMaterialFolder.addColor(parameters.basicMaterial, 'color').onChange((v) => material.color.setHex(v));
+      basicMaterialFolder.add(parameters.basicMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
+      basicMaterialFolder.add(parameters.basicMaterial, 'envMaps', ['none', 'reflection', 'refraction']).onChange((v) => {
+        if (v === 'none') {
+          material.envMaps = envMaps.none;
+        } else if (v === 'reflection') {
+          material.envMap = envMaps.reflection;
+        } else if (v === 'refraction') {
+          material.envMap = envMaps.refraction;
+        }
+      });
+      basicMaterialFolder.add(parameters.basicMaterial, 'combine', ['multiply', 'mix', 'add']).onChange((v) => {
+        if (v === 'multiply') {
+          material.combine = THREE.MultiplyOperation;
+          material.needsUpdate = true;
+        } else if (v === 'mix') {
+          material.combine = THREE.MixOperation;
+          material.needsUpdate = true;
+        } else if (v === 'add') {
+          material.combine = THREE.AddOperation;
+          material.needsUpdate = true;
+        }
+      });
 
       function animate() {
         requestAnimationFrame(animate);

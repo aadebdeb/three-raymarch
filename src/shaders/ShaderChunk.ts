@@ -22,6 +22,8 @@ import { physical_material_pars_fragment } from './chunks/physical_material_pars
 import { depth_raymarch_fragment } from './chunks/depth_raymarch_fragment';
 import { raymarch_fog_pars_fragment } from './chunks/raymarch_fog_pars_fragment';
 import { raymarch_fog_fragment } from './chunks/raymarch_fog_fragment';
+import { envmap_fragment } from './chunks/envmap_fragment';
+import { envmap_pars_fragment } from './chunks/envmap_pars_fragment';
 
 import { raymarch_vert } from './libs/raymarch_vert';
 import { raymarch_normal_frag } from './libs/raymarch_normal_frag';
@@ -57,6 +59,8 @@ export const ShaderChunk: {[key: string]: string} = {
   depth_raymarch_fragment: depth_raymarch_fragment,
   raymarch_fog_pars_fragment: raymarch_fog_pars_fragment,
   raymarch_fog_fragment: raymarch_fog_fragment,
+  envmap_fragment: envmap_fragment,
+  envmap_pars_fragment: envmap_pars_fragment,
 
   raymarch_vert: raymarch_vert,
   raymarch_normal_frag: raymarch_normal_frag,
