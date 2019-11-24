@@ -53,6 +53,9 @@
         material: {
           transparent: material.transparent,
           opacity: material.opacity,
+          maxRaymarchIteration: material.maxRaymarchIteration,
+          hitDistance: material.hitDistance,
+          differentiateDistance: material.differentiateDistance,
         },
       }
 
@@ -64,6 +67,9 @@
       const materialFolder = gui.addFolder('ObjectSpaceRaymarchMaterial');
       materialFolder.add(parameters.material, 'transparent').onChange((v) => material.transparent = v);
       materialFolder.add(parameters.material, 'opacity', 0, 1).onChange((v) => material.opacity = v);
+      materialFolder.add(parameters.material, 'maxRaymarchIteration', 8, 256).onChange((v) => material.maxRaymarchIteration = v);
+      materialFolder.add(parameters.material, 'hitDistance', 0.0, 0.1).onChange((v) => material.hitDistance = v);
+      materialFolder.add(parameters.material, 'differentiateDistance', 0.0001, 0.1).onChange((v) => material.differentiateDistance);
 
       function animate() {
         requestAnimationFrame(animate);

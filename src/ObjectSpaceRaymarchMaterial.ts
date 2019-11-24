@@ -78,7 +78,7 @@ export class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
   }
 
   set maxRaymarchIteration(maxRaymarchIteration: number) {
-    this.defines['MAX_RAYMARCH_ITERATION'] = maxRaymarchIteration;
+    this.defines['MAX_RAYMARCH_ITERATION'] = Math.floor(maxRaymarchIteration);
     this.needsUpdate = true;
   }
 
