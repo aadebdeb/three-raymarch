@@ -5,7 +5,7 @@ struct ObjectSpaceRaymarchPhysicalMaterial {
   float metalness;
   float roughness;
   #ifdef REFLECTIVITY
-    float reflecitvity;
+    float reflectivity;
   #endif
   #ifdef CLEARCOAT
     float clearcoat;

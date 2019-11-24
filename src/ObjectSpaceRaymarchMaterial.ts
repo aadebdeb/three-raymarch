@@ -26,6 +26,7 @@ export interface ObjectSpaceRaymarchMaterialParameters {
   differentiateDistance?: number,
   distanceScale?: number,
   uniforms?: { [uniform: string]: IUniform },
+  defines?: {[define: string]: any},
   opacity?: number,
 }
 
@@ -39,7 +40,8 @@ export class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
       differentiateDistance = 0.001,
       distanceScale = 1.0,
       opacity = 1.0,
-      uniforms = {}
+      uniforms = {},
+      defines = {},
     }: ObjectSpaceRaymarchMaterialParameters = {}) {
     if (distanceScale <= 0.0) {
       throw new Error('ObjectSpaceRaymarchMaterial: distanceScale must be bigger than 0.');
@@ -61,9 +63,12 @@ export class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
           'cameraDirection': { value: null },
         }
       ]),
-      defines: {
-        'MAX_RAYMARCH_ITERATION': maxRaymarchIteration,
-      }
+      defines: Object.assign(
+        {
+          'MAX_RAYMARCH_ITERATION': maxRaymarchIteration,
+        },
+        defines,
+      ),
     });
     this.extensions.fragDepth = true;
   }
