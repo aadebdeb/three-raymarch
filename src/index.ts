@@ -6,3 +6,4 @@ export { ObjectSpaceRaymarchPhongMaterial } from './ObjectSpaceRaymarchPhongMate
 export { ObjectSpaceRaymarchStandardMaterial } from './ObjectSpaceRaymarchStandardMaterial';
 export { ObjectSpaceRaymarchPhysicalMaterial } from './ObjectSpaceRaymarchPhysicalMaterial';
 export { ObjectSpaceRaymarchDepthMaterial } from './ObjectSpaceRaymarchDepthMaterial';
+export { ObjectSpaceRaymarchMatcapMaterial } from './ObjectSpaceRaymarchMatcapMaterial';
