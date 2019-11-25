@@ -6,14 +6,15 @@ uniform float shininess;
 
 #include <common>
 #include <packing>
+#include <envmap_common_pars_fragment>
+#include <envmap_pars_fragment>
+#include <gradientmap_pars_fragment>
 #include <bsdfs>
 #include <lights_pars_begin>
 #include <lights_phong_pars_fragment>
 #include <shadowmap_pars_fragment>
 #include <raymarch_fog_pars_fragment>
 #include <raymarch_common_pars_fragment>
-#include <envmap_common_pars_fragment>
-#include <envmap_pars_fragment>
 #include <ray_pars_fragment>
 #include <distance_pars_fragment>
 #include <raymarch_pars_fragment>

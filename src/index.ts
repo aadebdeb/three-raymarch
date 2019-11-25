@@ -3,6 +3,7 @@ export { ObjectSpaceRaymarchNormalMaterial } from './ObjectSpaceRaymarchNormalMa
 export { ObjectSpaceRaymarchBasicMaterial } from './ObjectSpaceRaymarchBasicMaterial';
 export { ObjectSpaceRaymarchLambertMaterial } from './ObjectSpaceRaymarchLambertMaterial';
 export { ObjectSpaceRaymarchPhongMaterial } from './ObjectSpaceRaymarchPhongMaterial';
+export { ObjectSpaceRaymarchToonMaterial } from './ObjectSpaceRaymarchToonMaterial';
 export { ObjectSpaceRaymarchStandardMaterial } from './ObjectSpaceRaymarchStandardMaterial';
 export { ObjectSpaceRaymarchPhysicalMaterial } from './ObjectSpaceRaymarchPhysicalMaterial';
 export { ObjectSpaceRaymarchDepthMaterial } from './ObjectSpaceRaymarchDepthMaterial';
