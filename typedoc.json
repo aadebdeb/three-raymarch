@@ -1,0 +1,8 @@
+{
+  "out": "docs",
+  "mode": "modules",
+  "includeDeclations": true,
+  "excludeExternals": true,
+  "excludeNotExported": true,
+  "excludePrivate": true
+}

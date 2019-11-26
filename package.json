@@ -10,17 +10,19 @@
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:umd": "webpack",
+    "doc": "typedoc src --tsconfig ./tsconfig.esm.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
+    "three": "^0.110.0",
     "ts-loader": "^6.2.1",
+    "typedoc": "^0.15.3",
     "typescript": "^3.7.2",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "three": "^0.110.0"
+    "webpack-cli": "^3.3.10"
   },
   "peerDependencies": {
     "three": "^0.110.0"
