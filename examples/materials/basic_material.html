@@ -29,7 +29,7 @@
         const reflectionCube = cubeTextureLoader.load(urls);
         reflectionCube.format = THREE.RGBFormat;
         const refractionCube = cubeTextureLoader.load(urls);
-        refractionCube.mapping - THREE.CubeRefractionMapping;
+        refractionCube.mapping = THREE.CubeRefractionMapping;
         refractionCube.format = THREE.RGBFormat;
         return {
           none: null,
@@ -110,6 +110,7 @@
         } else if (v === 'refraction') {
           material.envMap = envMaps.refraction;
         }
+        material.needsUpdate = true;
       });
       basicMaterialFolder.add(parameters.basicMaterial, 'combine', ['multiply', 'mix', 'add']).onChange((v) => {
         if (v === 'multiply') {

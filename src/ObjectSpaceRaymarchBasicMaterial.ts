@@ -63,7 +63,6 @@ export class ObjectSpaceRaymarchBasicMaterial extends ObjectSpaceRaymarchMateria
 
   set envMap(envMap: CubeTexture | null) {
     this.uniforms['envMap'].value = envMap;
-    this.needsUpdate = true;
   }
 
   /**
