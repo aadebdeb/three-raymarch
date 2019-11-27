@@ -82,9 +82,10 @@
         },
         basicMaterial: {
           color: material.color.getHex(),
-          reflectivity: material.reflectivity,
           envMaps: 'none',
           combine: 'multiply',
+          reflectivity: material.reflectivity,
+          refractionRatio: material.refractionRatio,
         },
       }
 
@@ -101,7 +102,6 @@
       materialFolder.add(parameters.material, 'differentiateDistance', 0.0001, 0.1).onChange((v) => material.differentiateDistance);
       const basicMaterialFolder = gui.addFolder('ObjectSpaceRaymarchBasicMaterial');
       basicMaterialFolder.addColor(parameters.basicMaterial, 'color').onChange((v) => material.color.setHex(v));
-      basicMaterialFolder.add(parameters.basicMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
       basicMaterialFolder.add(parameters.basicMaterial, 'envMaps', ['none', 'reflection', 'refraction']).onChange((v) => {
         if (v === 'none') {
           material.envMaps = envMaps.none;
@@ -124,6 +124,8 @@
           material.needsUpdate = true;
         }
       });
+      basicMaterialFolder.add(parameters.basicMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
+      basicMaterialFolder.add(parameters.basicMaterial, 'refractionRatio', 0, 1).onChange((v) => material.refractionRatio = v);
 
       function animate() {
         requestAnimationFrame(animate);

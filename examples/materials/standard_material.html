@@ -104,9 +104,10 @@
           emissive: material.emissive.getHex(),
           roughness: material.roughness,
           metalness: material.metalness,
-          reflectivity: material.reflectivity,
           envMaps: 'none',
           combine: 'multiply',
+          reflectivity: material.reflectivity,
+          refractionRatio: material.refractionRatio,
         },
       }
 
@@ -126,7 +127,6 @@
       standardMaterialFolder.addColor(parameters.standardMaterial, 'emissive').onChange((v) => material.emissive.setHex(v));
       standardMaterialFolder.add(parameters.standardMaterial, 'roughness', 0.0, 1.0).onChange((v) => material.roughness = v);
       standardMaterialFolder.add(parameters.standardMaterial, 'metalness', 0.0, 1.0).onChange((v) => material.metalness = v);
-      standardMaterialFolder.add(parameters.standardMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
       standardMaterialFolder.add(parameters.standardMaterial, 'envMaps', ['none', 'reflection', 'refraction']).onChange((v) => {
         if (v === 'none') {
           material.envMaps = envMaps.none;
@@ -148,6 +148,8 @@
           material.needsUpdate = true;
         }
       });
+      standardMaterialFolder.add(parameters.standardMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
+      standardMaterialFolder.add(parameters.standardMaterial, 'refractionRatio', 0, 1).onChange((v) => material.refractionRatio = v);
 
       function animate() {
         requestAnimationFrame(animate);

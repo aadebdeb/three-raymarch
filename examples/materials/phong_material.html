@@ -102,9 +102,10 @@
           emissive: material.emissive.getHex(),
           specular: material.specular.getHex(),
           shininess: material.shininess,
-          reflectivity: material.reflectivity,
           envMaps: 'none',
           combine: 'multiply',
+          reflectivity: material.reflectivity,
+          refractionRatio: material.refractionRatio,
         },
       }
 
@@ -124,7 +125,6 @@
       phongMaterialFolder.addColor(parameters.phongMaterial, 'emissive').onChange((v) => material.emissive.setHex(v));
       phongMaterialFolder.addColor(parameters.phongMaterial, 'specular').onChange((v) => material.specular.setHex(v));
       phongMaterialFolder.add(parameters.phongMaterial, 'shininess', 0, 100).onChange((v) => material.shininess = v);
-      phongMaterialFolder.add(parameters.phongMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
       phongMaterialFolder.add(parameters.phongMaterial, 'envMaps', ['none', 'reflection', 'refraction']).onChange((v) => {
         if (v === 'none') {
           material.envMaps = envMaps.none;
@@ -133,6 +133,7 @@
         } else if (v === 'refraction') {
           material.envMap = envMaps.refraction;
         }
+        material.needsUpdate = true;
       });
       phongMaterialFolder.add(parameters.phongMaterial, 'combine', ['multiply', 'mix', 'add']).onChange((v) => {
         if (v === 'multiply') {
@@ -146,6 +147,8 @@
           material.needsUpdate = true;
         }
       });
+      phongMaterialFolder.add(parameters.phongMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
+      phongMaterialFolder.add(parameters.phongMaterial, 'refractionRatio', 0, 1).onChange((v) => material.refractionRatio = v);
 
       function animate() {
         requestAnimationFrame(animate);

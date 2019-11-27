@@ -116,9 +116,10 @@
           emissive: material.emissive.getHex(),
           specular: material.specular.getHex(),
           shininess: material.shininess,
-          reflectivity: material.reflectivity,
           envMaps: 'none',
           combine: 'multiply',
+          reflectivity: material.reflectivity,
+          refractionRatio: material.refractionRatio,
           gradientMap: 'none',
         },
       }
@@ -139,7 +140,6 @@
       toonMaterialFolder.addColor(parameters.toonMaterial, 'emissive').onChange((v) => material.emissive.setHex(v));
       toonMaterialFolder.addColor(parameters.toonMaterial, 'specular').onChange((v) => material.specular.setHex(v));
       toonMaterialFolder.add(parameters.toonMaterial, 'shininess', 0, 100).onChange((v) => material.shininess = v);
-      toonMaterialFolder.add(parameters.toonMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
       toonMaterialFolder.add(parameters.toonMaterial, 'envMaps', ['none', 'reflection', 'refraction']).onChange((v) => {
         if (v === 'none') {
           material.envMaps = envMaps.none;
@@ -173,6 +173,8 @@
           material.needsUpdate = true;
         }
       });
+      toonMaterialFolder.add(parameters.toonMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
+      toonMaterialFolder.add(parameters.toonMaterial, 'refractionRatio', 0, 1).onChange((v) => material.refractionRatio = v);
 
       function animate() {
         requestAnimationFrame(animate);

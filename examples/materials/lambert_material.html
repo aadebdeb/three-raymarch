@@ -100,9 +100,10 @@
         lambertMaterial: {
           color: material.color.getHex(),
           emissive: material.emissive.getHex(),
-          reflectivity: material.reflectivity,
           envMaps: 'none',
           combine: 'multiply',
+          reflectivity: material.reflectivity,
+          refractionRatio: material.refractionRatio,
         },
       }
 
@@ -120,7 +121,6 @@
       const lambertMaterialFolder = gui.addFolder('ObjectSpaceRaymarchLambertMaterial');
       lambertMaterialFolder.addColor(parameters.lambertMaterial, 'color').onChange((v) => material.color.setHex(v));
       lambertMaterialFolder.addColor(parameters.lambertMaterial, 'emissive').onChange((v) => material.emissive.setHex(v));
-      lambertMaterialFolder.add(parameters.lambertMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
       lambertMaterialFolder.add(parameters.lambertMaterial, 'envMaps', ['none', 'reflection', 'refraction']).onChange((v) => {
         if (v === 'none') {
           material.envMaps = envMaps.none;
@@ -142,6 +142,8 @@
           material.needsUpdate = true;
         }
       });
+      lambertMaterialFolder.add(parameters.lambertMaterial, 'reflectivity', 0, 1).onChange((v) => material.reflectivity = v);
+      lambertMaterialFolder.add(parameters.lambertMaterial, 'refractionRatio', 0, 1).onChange((v) => material.refractionRatio = v);
 
       function animate() {
         requestAnimationFrame(animate);
