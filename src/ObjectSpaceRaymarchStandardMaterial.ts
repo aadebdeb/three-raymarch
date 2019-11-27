@@ -39,6 +39,7 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
           parameters.uniforms ? parameters.uniforms : {},
           UniformsLib.lights,
           UniformsLib.fog,
+          UniformsLib.envmap,
           {
             'diffuse': { value: parameters.color ? parameters.color : new Color(0xffffff) },
             'emissive': { value: parameters.emissive ? parameters.emissive : new Color(0x000000) },

@@ -64,7 +64,7 @@
       cubeMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(100, 100, 100), cubeMaterial);
       sceneCube.add(cubeMesh);
 
-      const raymarchMaterial = new THREE_RAYMARCH.ObjectSpaceRaymarchLambertMaterial({
+      const raymarchMaterial = new THREE_RAYMARCH.ObjectSpaceRaymarchBasicMaterial({
         getDistanceChunk: `
 float random(float x){
   return fract(sin(x * 12.9898) * 43758.5453);
@@ -100,6 +100,7 @@ float getDistance(vec3 p) {
         hitDistance: 0.5,
         differentiateDistance: 0.2,
         envMap: textureCube,
+        reflectivity: 1.0,
       });
       const raymarch = new THREE_RAYMARCH.ObjectSpaceRaymarch({
         material: raymarchMaterial,

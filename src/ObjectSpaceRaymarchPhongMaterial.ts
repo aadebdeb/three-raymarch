@@ -39,6 +39,7 @@ export class ObjectSpaceRaymarchPhongMaterial extends ObjectSpaceRaymarchMateria
           parameters.uniforms ? parameters.uniforms : {},
           UniformsLib.fog,
           UniformsLib.lights,
+          UniformsLib.envmap,
           {
             'diffuse': { value: parameters.color ? parameters.color : new Color(0xffffff) },
             'shininess': { value: parameters.shininess !== undefined ? parameters.shininess : 30 },
