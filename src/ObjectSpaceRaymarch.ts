@@ -7,6 +7,9 @@ export interface ObjectSpaceRaymarchParameters {
   size?: Vector3,
 }
 
+/**
+ * An 3D Object for object space raymarching.
+ */
 export class ObjectSpaceRaymarch extends Mesh {
   private static geometry = new BoxBufferGeometry(1.0, 1.0, 1.0);
 

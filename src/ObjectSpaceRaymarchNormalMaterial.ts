@@ -3,6 +3,9 @@ import { ShaderChunk } from './shaders/ShaderChunk';
 
 export interface ObjectSpaceRaymarchNormalMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {};
 
+/**
+ * A material for object space raymarching equivalent to MeshNormalMaterial.
+ */
 export class ObjectSpaceRaymarchNormalMaterial extends ObjectSpaceRaymarchMaterial {
   constructor(parameters: ObjectSpaceRaymarchNormalMaterialParameters = {}) {
     const overrideChunks: {[key: string]: string} = {};

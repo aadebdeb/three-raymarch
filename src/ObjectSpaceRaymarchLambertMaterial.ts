@@ -3,15 +3,20 @@ import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } fr
 import { ShaderChunk } from './shaders/ShaderChunk';
 
 export interface ObjectSpaceRaymarchLambertMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
+  /** Color of the material. */
   color?: Color,
+  /** Emmisive color of the material. */
   emissive?: Color,
-  getMaterialChunk?: string,
   envMap?: CubeTexture,
   reflectivity?: number,
   refractionRatio?: number,
   combine?: number,
+  getMaterialChunk?: string,
 }
 
+/**
+ * A material for object space raymarching equivalent to MeshLambertMaterial.
+ */
 export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMaterial {
   combine: number;
   constructor(parameters: ObjectSpaceRaymarchLambertMaterialParameters = {}) {
@@ -46,6 +51,7 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
     this.fog = true;
   }
 
+  /** Color of the material. */
   get color(): Color {
     return this.uniforms['diffuse'].value;
   }
@@ -58,6 +64,7 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
     return this.uniforms['emissive'].value;
   }
 
+  /** Emissive color of the material. */
   set emissive(emissive: Color) {
     this.uniforms['emissive'].value = emissive.clone();
   }

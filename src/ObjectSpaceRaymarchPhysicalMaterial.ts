@@ -2,10 +2,15 @@ import { UniformsUtils } from 'three';
 import { ObjectSpaceRaymarchStandardMaterial, ObjectSpaceRaymarchStandardMaterialParameters } from './ObjectSpaceRaymarchStandardMaterial';
 
 export interface ObjectSpaceRaymarchPhysicalMaterialParameters extends ObjectSpaceRaymarchStandardMaterialParameters {
+  /** Clearcoat level. */
   clearcoat?: number,
+  /** How rough the clearcoat appears. */
   clearcoatRoughness?: number,
 }
 
+/**
+ * A material for object space raymarching equivalent to MeshPhysicalMaterial.
+ */
 export class ObjectSpaceRaymarchPhysicalMaterial extends ObjectSpaceRaymarchStandardMaterial {
   constructor(parameters: ObjectSpaceRaymarchPhysicalMaterialParameters = {}) {
     super(Object.assign({}, parameters, {
@@ -23,6 +28,7 @@ export class ObjectSpaceRaymarchPhysicalMaterial extends ObjectSpaceRaymarchStan
     }));
   }
 
+    /** Clearcoat level. */
   get clearcoat(): number {
     return this.uniforms['clearcoat'].value;
   }
@@ -31,6 +37,7 @@ export class ObjectSpaceRaymarchPhysicalMaterial extends ObjectSpaceRaymarchStan
     this.uniforms['clearcoat'].value = clearcoat;
   }
 
+  /** How rough the clearcoat appears. */
   get clearcoatRoughness(): number {
     return this.uniforms['clearcoatRoughness'].value;
   }

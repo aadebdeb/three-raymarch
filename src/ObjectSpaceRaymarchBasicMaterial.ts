@@ -3,14 +3,18 @@ import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } fr
 import { ShaderChunk } from './shaders/ShaderChunk';
 
 export interface ObjectSpaceRaymarchBasicMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
+  /** Color of the material. */
   color?: Color,
-  getMaterialChunk?: string,
   envMap?: CubeTexture,
   reflectivity?: number,
   refractionRatio?: number,
   combine?: number,
+  getMaterialChunk?: string,
 }
 
+/**
+ * A material for object space raymarching equivalent to MeshBasicMaterial. 
+ */
 export class ObjectSpaceRaymarchBasicMaterial extends ObjectSpaceRaymarchMaterial {
   combine: number;
   constructor(parameters: ObjectSpaceRaymarchBasicMaterialParameters = {}) {
@@ -43,6 +47,7 @@ export class ObjectSpaceRaymarchBasicMaterial extends ObjectSpaceRaymarchMateria
     this.fog = true;
   }
 
+  /** Color of the material. */
   get color(): Color {
     return this.uniforms['diffuse'].value;
   }
@@ -51,6 +56,7 @@ export class ObjectSpaceRaymarchBasicMaterial extends ObjectSpaceRaymarchMateria
     this.uniforms['diffuse'].value = color.clone();
   }
 
+  /** The environment map. */
   get envMap(): CubeTexture | null {
     return this.uniforms['envMap'].value;
   }
@@ -60,6 +66,9 @@ export class ObjectSpaceRaymarchBasicMaterial extends ObjectSpaceRaymarchMateria
     this.needsUpdate = true;
   }
 
+  /**
+   * How much the environment map affects the surface.
+   */
   get reflectivity(): number {
     return this.uniforms['reflectivity'].value;
   }
@@ -68,6 +77,9 @@ export class ObjectSpaceRaymarchBasicMaterial extends ObjectSpaceRaymarchMateria
     this.uniforms['reflectivity'].value = reflectivity;
   }
 
+  /**
+   * The index of refraction.
+   */
   get refractionRatio(): number {
     return this.uniforms['refractionRatio'].value;
   }

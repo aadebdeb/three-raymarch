@@ -5,6 +5,9 @@ export interface ObjectSpaceRaymarchToonMateiralParameters extends ObjectSpaceRa
   gradientMap?: Texture;
 }
 
+/**
+ * A material for object space raymarching equivalent to MeshToonMaterial.
+ */
 export class ObjectSpaceRaymarchToonMaterial extends ObjectSpaceRaymarchPhongMaterial {
   constructor(parameters: ObjectSpaceRaymarchToonMateiralParameters = {}) {
     super(Object.assign({}, parameters, {

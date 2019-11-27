@@ -3,10 +3,15 @@ import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } fr
 import { ShaderChunk } from './shaders/ShaderChunk';
 
 export interface ObjectSpaceRaymarchMatcapMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
+  /** Color of the material. */
   color?: Color,
+  /** The matacp map */
   matcap?: Texture,
 }
 
+/**
+ * A material for object space raymarching equivalent to MeshMatcapMaterial.
+ */
 export class ObjectSpaceRaymarchMatcapMaterial extends ObjectSpaceRaymarchMaterial {
   constructor(parameters: ObjectSpaceRaymarchMatcapMaterialParameters = {}) {
     const overrideChunks: {[key: string]: string} = {};
@@ -33,6 +38,7 @@ export class ObjectSpaceRaymarchMatcapMaterial extends ObjectSpaceRaymarchMateri
     } 
   }
 
+  /** Color of the material. */
   get color(): Color {
     return this.uniforms['diffuse'].value;
   }
@@ -41,12 +47,14 @@ export class ObjectSpaceRaymarchMatcapMaterial extends ObjectSpaceRaymarchMateri
     this.uniforms['diffuse'].value = color.clone();
   }
 
+  /** The matacap map. */
   get matcap(): Texture | null {
     return this.uniforms['matcap'].value;
   }
 
   /**
-   * must make #needsUpdate true.
+   * The matpcap map.
+   * #needsUpdate must be set true to apply the change.
    */
   set matcap(matcap: Texture | null) {
     this.uniforms['matcap'].value = matcap;

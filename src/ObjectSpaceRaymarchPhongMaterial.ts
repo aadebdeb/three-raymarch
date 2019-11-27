@@ -3,17 +3,24 @@ import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } fr
 import { ShaderChunk } from './shaders/ShaderChunk';
 
 export interface ObjectSpaceRaymarchPhongMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
+  /** Color of the material. */
   color?: Color,
+  /** Emissive color of the material. */
   emissive?: Color,
+  /** Specular color of the material. */
   specular?: Color,
+  /** How shiny the specular highlight is. */
   shininess?: number,
-  getMaterialChunk?: string,
   envMap?: CubeTexture,
   reflectivity?: number,
   refractionRatio?: number,
   combine?: number,
+  getMaterialChunk?: string,
 }
 
+/**
+ * A material for object space raymarching equivalent to MeshPhongMaterial.
+ */
 export class ObjectSpaceRaymarchPhongMaterial extends ObjectSpaceRaymarchMaterial {
   combine: number;
   constructor(parameters: ObjectSpaceRaymarchPhongMaterialParameters = {}) {

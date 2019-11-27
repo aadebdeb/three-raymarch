@@ -3,17 +3,24 @@ import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } fr
 import { ShaderChunk } from './shaders/ShaderChunk';
 
 export interface ObjectSpaceRaymarchStandardMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
+  /** Color of the material. */
   color?: Color,
+  /** Emissive color of the material. */
   emissive?: Color,
+  /** How much the material is like a metal. */
   metalness?: number,
+  /** How rough the material appears. */
   roughness?: number,
-  getMaterialChunk?: string,
   envMap?: CubeTexture,
   reflectivity?: number,
   refractionRatio?: number,
   combine?: number,
+  getMaterialChunk?: string,
 }
 
+/**
+ * A material for object space raymarching equivalent to MeshStandardMaterial.
+ */
 export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMaterial {
   combine: number;
   constructor(parameters: ObjectSpaceRaymarchStandardMaterialParameters = {}) {
@@ -51,6 +58,7 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
     this.fog = true;
   }
 
+  /** Color of the material. */
   get color(): Color {
     return this.uniforms['diffuse'].value;
   }
@@ -59,6 +67,7 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
     this.uniforms['diffuse'].value = color.clone();
   }
 
+  /** Emissive color of the material. */
   get emissive(): Color {
     return this.uniforms['emissive'].value;
   }
@@ -67,6 +76,7 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
     this.uniforms['emissive'].value = emissive.clone();
   }
 
+  /** How much the material is like a metal. */
   get metalness(): number {
     return this.uniforms['metalness'].value;
   }
@@ -75,6 +85,7 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
     this.uniforms['metalness'].value = metalness;
   }
 
+  /** How rough the material appears. */
   get roughness(): number {
     return this.uniforms['roughness'].value;
   }
