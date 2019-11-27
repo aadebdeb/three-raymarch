@@ -10,7 +10,7 @@ export class ObjectSpaceRaymarchDepthMaterial extends ObjectSpaceRaymarchMateria
   constructor(parameters: ObjectSpaceRaymarchDepthMaterialParameters = {}) {
     const overrideChunks: {[key: string]: string} = {};
     if (parameters.getDistanceChunk) {
-      overrideChunks.distance_par_fragment = parameters.getDistanceChunk;
+      overrideChunks.distance_pars_fragment = parameters.getDistanceChunk;
     }
     super(
       ShaderChunk.raymarch_depth_frag,

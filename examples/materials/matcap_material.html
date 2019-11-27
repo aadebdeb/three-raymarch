@@ -38,10 +38,10 @@
           }
 
           float getDistance(vec3 p) {
-            p = mod(p, 0.5) - 0.25;
-            return sdSphere(p, 0.1);
-          }`,
-          matcap: matcaps.porcelainWhite,
+            p = mod(p, 1.0) - 0.5;
+            return sdSphere(p, 0.4);
+          }`,   
+        matcap: matcaps.porcelainWhite,
       });
 
       const raymarch = new THREE_RAYMARCH.ObjectSpaceRaymarch({
