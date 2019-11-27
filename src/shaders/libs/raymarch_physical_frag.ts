@@ -53,7 +53,6 @@ void main(void) {
     float clearcoatRoughness = physicalMaterial.clearcoatRoughness;
   #endif
 
-  vec3 worldNormal = normal;
   #include <lights_physical_fragment>
   #include <lights_fragment_begin>
   #include <lights_fragment_end>

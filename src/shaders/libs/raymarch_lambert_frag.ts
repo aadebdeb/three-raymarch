@@ -27,7 +27,6 @@ void main(void) {
   ReflectedLight reflectedLight = ReflectedLight(vec3(0.0), vec3(0.0), vec3(0.0), vec3(0.0));
   vec3 totalEmissiveRadiance = lambertMaterial.emissive;
 
-  vec3 worldNormal = normal;
   #include <lights_lambert_fragment>
   #include <lights_fragment_begin>
   #include <lights_fragment_end>

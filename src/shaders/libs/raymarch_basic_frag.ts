@@ -1,6 +1,7 @@
 export const raymarch_basic_frag = `
 uniform vec3 diffuse;
 
+#include <common>
 #include <raymarch_fog_pars_fragment>
 #include <raymarch_common_pars_fragment>
 #include <envmap_common_pars_fragment>
@@ -19,7 +20,6 @@ void main(void) {
 
   vec3 outgoingLight = material.diffuse;
 
-  vec3 worldNormal = normal; // TODO: 
   float specularStrength = 1.0;
   #include <envmap_fragment>
 

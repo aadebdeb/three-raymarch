@@ -2,7 +2,7 @@ export const lights_fragment_begin = `
 GeometricContext geometry;
 vec3 mvPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;
 geometry.position = mvPosition;
-geometry.normal = worldNormal;
+geometry.normal = normal;
 geometry.viewDir = normalize(-mvPosition.xyz);
 
 IncidentLight directLight;

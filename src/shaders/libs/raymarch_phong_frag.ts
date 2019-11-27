@@ -35,7 +35,6 @@ void main(void) {
   float shininess = phongMaterial.shininess;
   float specularStrength = 1.0;
 
-  vec3 worldNormal = normal;
   #include <lights_phong_fragment>
   #include <lights_fragment_begin>
   #include <lights_fragment_end>

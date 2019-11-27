@@ -8,6 +8,8 @@ export const envmap_fragment = `
     cameraToFrag = normalize(worldPosition - cameraPosition);
   }
 
+  vec3 worldNormal = inverseTransformDirection(normal, viewMatrix);
+
   #ifdef ENVMAP_MODE_REFLECTION
     vec3 reflectVec = reflect(cameraToFrag, worldNormal);
   #else
