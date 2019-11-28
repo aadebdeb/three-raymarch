@@ -19,7 +19,8 @@
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:umd": "webpack",
-    "doc": "typedoc src --tsconfig ./tsconfig.esm.json"
+    "doc": "typedoc src --tsconfig ./tsconfig.esm.json",
+    "deploy": "npm run doc && mkdir -p ./deploydir && cp -r ./examples ./deploydir/examples && cp -r ./docs ./deploydir/docs && gh-pages -d deploydir"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "gh-pages": "^2.1.1",
     "three": "^0.110.0",
     "ts-loader": "^6.2.1",
     "typedoc": "^0.15.3",

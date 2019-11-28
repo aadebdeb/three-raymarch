@@ -3,4 +3,5 @@ cjs/
 esm/
 umd/
 docs/
+deploydir/
 package-lock.json
