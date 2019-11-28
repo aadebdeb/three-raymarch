@@ -12,7 +12,7 @@ export class ObjectSpaceRaymarchNormalMaterial extends ObjectSpaceRaymarchMateri
   constructor(parameters: ObjectSpaceRaymarchNormalMaterialParameters = {}) {
     const overrideChunks: {[key: string]: string} = {};
     if (parameters.getDistanceChunk) {
-      overrideChunks.distance_pars_fragment = parameters.getDistanceChunk;
+      overrideChunks['distance_pars_fragment'] = parameters.getDistanceChunk;
     }
     super(
       RaymarchShaderChunk.raymarch_normal_frag, 

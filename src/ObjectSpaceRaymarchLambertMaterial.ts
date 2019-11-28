@@ -23,13 +23,13 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
   constructor(parameters: ObjectSpaceRaymarchLambertMaterialParameters = {}) {
     const overrideChunks: {[key: string]: string} = {};
     if (parameters.getDistanceChunk) {
-      overrideChunks.distance_pars_fragment = parameters.getDistanceChunk;
+      overrideChunks['distance_pars_fragment'] = parameters.getDistanceChunk;
     }
     if (parameters.getMaterialChunk) {
-      overrideChunks.lambert_get_material_pars_fragment = parameters.getMaterialChunk;
+      overrideChunks['lambert_get_material_pars_fragment'] = parameters.getMaterialChunk;
     }
     super(
-      RaymarchShaderChunk.raymarch_lambert_frag,
+      RaymarchShaderChunk['raymarch_lambert_frag'],
       overrideChunks,
       Object.assign({}, parameters, {
       uniforms: UniformsUtils.merge([

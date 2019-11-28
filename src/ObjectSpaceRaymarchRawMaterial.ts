@@ -10,13 +10,13 @@ export class ObjectSpaceRaymarchRawMaterial extends ObjectSpaceRaymarchMaterial 
   constructor(parameters: ObjectSpaceRaymarchRawMaterialParameters = {}) {
     const overrideChunks: {[key: string]: string} = {};
     if (parameters.getDistanceChunk) {
-      overrideChunks.distance_pars_fragment = parameters.getDistanceChunk;
+      overrideChunks['distance_pars_fragment'] = parameters.getDistanceChunk;
     }
     if (parameters.getColorChunk) {
-      overrideChunks.raw_color_pars_fragment = parameters.getColorChunk;
+      overrideChunks['raw_color_pars_fragment'] = parameters.getColorChunk;
     }
     super(
-      RaymarchShaderChunk.raymarch_raw_frag,
+      RaymarchShaderChunk['raymarch_raw_frag'],
       overrideChunks,
       parameters,
     );

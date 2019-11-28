@@ -21,13 +21,13 @@ export class ObjectSpaceRaymarchBasicMaterial extends ObjectSpaceRaymarchMateria
   constructor(parameters: ObjectSpaceRaymarchBasicMaterialParameters = {}) {
     const overrideChunks: {[key: string]: string} = {};
     if (parameters.getDistanceChunk) {
-      overrideChunks.distance_pars_fragment = parameters.getDistanceChunk;
+      overrideChunks['distance_pars_fragment'] = parameters.getDistanceChunk;
     }
     if (parameters.getMaterialChunk) {
-      overrideChunks.basic_get_material_pars_fragment = parameters.getMaterialChunk;
+      overrideChunks['basic_get_material_pars_fragment'] = parameters.getMaterialChunk;
     }
     super(
-      RaymarchShaderChunk.raymarch_basic_frag,
+      RaymarchShaderChunk['raymarch_basic_frag'],
       overrideChunks,
       Object.assign({}, parameters, {
       uniforms: UniformsUtils.merge([
