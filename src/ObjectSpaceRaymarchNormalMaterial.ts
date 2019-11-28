@@ -1,7 +1,9 @@
 import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from './ObjectSpaceRaymarchMaterial';
 import { ShaderChunk } from './shaders/ShaderChunk';
 
-export interface ObjectSpaceRaymarchNormalMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {};
+export interface ObjectSpaceRaymarchNormalMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
+  getDistanceChunk?: string,
+};
 
 /**
  * A material for object space raymarching equivalent to MeshNormalMaterial.

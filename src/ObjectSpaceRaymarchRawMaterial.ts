@@ -2,6 +2,7 @@ import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } fr
 import { ShaderChunk } from './shaders/ShaderChunk';
 
 export interface ObjectSpaceRaymarchRawMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
+  getDistanceChunk?: string,
   getColorChunk?: string,
 }
 

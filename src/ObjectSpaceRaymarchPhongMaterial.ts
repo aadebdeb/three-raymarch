@@ -15,6 +15,7 @@ export interface ObjectSpaceRaymarchPhongMaterialParameters extends ObjectSpaceR
   reflectivity?: number,
   refractionRatio?: number,
   combine?: number,
+  getDistanceChunk?: string,
   getMaterialChunk?: string,
 }
 

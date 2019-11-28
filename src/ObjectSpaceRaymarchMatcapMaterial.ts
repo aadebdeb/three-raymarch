@@ -7,6 +7,7 @@ export interface ObjectSpaceRaymarchMatcapMaterialParameters extends ObjectSpace
   color?: Color,
   /** The matacp map */
   matcap?: Texture,
+  getDistanceChunk?: string,
 }
 
 /**

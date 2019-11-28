@@ -9,6 +9,7 @@ export interface ObjectSpaceRaymarchBasicMaterialParameters extends ObjectSpaceR
   reflectivity?: number,
   refractionRatio?: number,
   combine?: number,
+  getDistanceChunk?: string,
   getMaterialChunk?: string,
 }
 

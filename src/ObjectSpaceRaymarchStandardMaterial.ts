@@ -15,6 +15,7 @@ export interface ObjectSpaceRaymarchStandardMaterialParameters extends ObjectSpa
   reflectivity?: number,
   refractionRatio?: number,
   combine?: number,
+  getDistanceChunk?: string,
   getMaterialChunk?: string,
 }
 

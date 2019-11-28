@@ -11,6 +11,7 @@ export interface ObjectSpaceRaymarchLambertMaterialParameters extends ObjectSpac
   reflectivity?: number,
   refractionRatio?: number,
   combine?: number,
+  getDistanceChunk?: string,
   getMaterialChunk?: string,
 }
 
