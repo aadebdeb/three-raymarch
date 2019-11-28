@@ -32,7 +32,7 @@ import { raymarch_depth_frag } from './libs/raymarch_depth_frag';
 import { raymarch_matcap_frag } from './libs/raymarch_matcap_frag';
 import { raymarch_raw_frag } from './libs/raymarch_raw_frag';
 
-export const ShaderChunk: {[key: string]: string} = {
+export const RaymarchShaderChunk: {[key: string]: string} = {
   raymarch_common_pars_fragment: raymarch_common_pars_fragment,
   ray_pars_fragment: ray_pars_fragment,
   distance_pars_fragment: distance_pars_fragment,

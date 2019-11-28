@@ -1,6 +1,6 @@
 import { Texture, Color, UniformsLib, UniformsUtils } from 'three';
 import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from './ObjectSpaceRaymarchMaterial';
-import { ShaderChunk } from './shaders/ShaderChunk';
+import { RaymarchShaderChunk } from './shaders/RaymarchShaderChunk';
 
 export interface ObjectSpaceRaymarchMatcapMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
   /** Color of the material. */
@@ -20,7 +20,7 @@ export class ObjectSpaceRaymarchMatcapMaterial extends ObjectSpaceRaymarchMateri
       overrideChunks.distance_pars_fragment = parameters.getDistanceChunk;
     }
     super(
-      ShaderChunk.raymarch_matcap_frag,
+      RaymarchShaderChunk.raymarch_matcap_frag,
       overrideChunks,
 
       Object.assign({}, parameters, {

@@ -1,5 +1,5 @@
 import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from './ObjectSpaceRaymarchMaterial';
-import { ShaderChunk } from './shaders/ShaderChunk';
+import { RaymarchShaderChunk } from './shaders/RaymarchShaderChunk';
 
 export interface ObjectSpaceRaymarchNormalMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
   getDistanceChunk?: string,
@@ -15,7 +15,7 @@ export class ObjectSpaceRaymarchNormalMaterial extends ObjectSpaceRaymarchMateri
       overrideChunks.distance_pars_fragment = parameters.getDistanceChunk;
     }
     super(
-      ShaderChunk.raymarch_normal_frag, 
+      RaymarchShaderChunk.raymarch_normal_frag, 
       overrideChunks,
       parameters
     );

@@ -1,6 +1,6 @@
 import { Color, CubeTexture, UniformsLib, UniformsUtils, MultiplyOperation } from 'three';
 import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from './ObjectSpaceRaymarchMaterial';
-import { ShaderChunk } from './shaders/ShaderChunk';
+import { RaymarchShaderChunk } from './shaders/RaymarchShaderChunk';
 
 export interface ObjectSpaceRaymarchPhongMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
   /** Color of the material. */
@@ -33,7 +33,7 @@ export class ObjectSpaceRaymarchPhongMaterial extends ObjectSpaceRaymarchMateria
       overrideChunks.phong_get_material_pars_fragment = parameters.getMaterialChunk;
     }
     super(
-      ShaderChunk.raymarch_phong_frag,
+      RaymarchShaderChunk.raymarch_phong_frag,
       overrideChunks,
       Object.assign({}, parameters, {
         uniforms: UniformsUtils.merge([

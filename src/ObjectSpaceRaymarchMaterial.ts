@@ -1,10 +1,10 @@
 import { ShaderMaterial, IUniform, UniformsUtils } from 'three';
-import { ShaderChunk } from './shaders/ShaderChunk';
+import { RaymarchShaderChunk } from './shaders/RaymarchShaderChunk';
 
 const INCLUDE_PATTERN = /^[ \t]*#include +<([\w\d./]+)>/gm;
 
 function resolveIncludes(fragmentShader: string, overrideChunks: {[key: string]: string}): string {
-  const chunks = Object.assign({}, ShaderChunk, overrideChunks);
+  const chunks = Object.assign({}, RaymarchShaderChunk, overrideChunks);
   function includeReplacer(match: string, include: string) {
     const str = chunks[include];
     return str ? resolveIncludes(str) : match;
@@ -50,7 +50,7 @@ export abstract class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
       throw new Error('ObjectSpaceRaymarchMaterial: distanceScale must be bigger than 0.');
     }
     super({
-      vertexShader: ShaderChunk.raymarch_vert,
+      vertexShader: RaymarchShaderChunk.raymarch_vert,
       fragmentShader: resolveIncludes(fragmentShader, overrideChunks),
       uniforms: UniformsUtils.merge([
         uniforms,
