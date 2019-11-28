@@ -26,7 +26,10 @@ export interface ObjectSpaceRaymarchMaterialParameters {
   opacity?: number,
 }
 
-export class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
+/**
+ * Base material class for object space raymarching.
+ */
+export abstract class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
   constructor(
     fragmentShader: string,
     overrideChunks: {[key: string]: string},
