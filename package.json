@@ -1,7 +1,16 @@
 {
   "name": "three-raymarch",
   "version": "0.0.0",
-  "description": "",
+  "description": "Raymarching Plugin for three.js",
+  "keywords": [
+    "three",
+    "three.js",
+    "raymarch",
+    "raymarching",
+    "WebGL"
+  ],
+  "author": "aadebdeb",
+  "license": "MIT",
   "main": "cjs/index.js",
   "module": "esm/index.js",
   "types": "cjs/index.d.ts",
@@ -10,11 +19,12 @@
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:umd": "webpack",
-    "doc": "typedoc src --tsconfig ./tsconfig.esm.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "doc": "typedoc src --tsconfig ./tsconfig.esm.json"
   },
-  "author": "",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aadebdeb/three-raymarch.git"
+  },
   "dependencies": {},
   "devDependencies": {
     "three": "^0.110.0",
