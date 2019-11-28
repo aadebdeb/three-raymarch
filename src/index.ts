@@ -1,4 +1,5 @@
 export { ObjectSpaceRaymarch } from './ObjectSpaceRaymarch';
+export { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from './ObjectSpaceRaymarchMaterial';
 export { ObjectSpaceRaymarchNormalMaterial, ObjectSpaceRaymarchNormalMaterialParameters } from './ObjectSpaceRaymarchNormalMaterial';
 export { ObjectSpaceRaymarchBasicMaterial, ObjectSpaceRaymarchBasicMaterialParameters } from './ObjectSpaceRaymarchBasicMaterial';
 export { ObjectSpaceRaymarchLambertMaterial, ObjectSpaceRaymarchLambertMaterialParameters } from './ObjectSpaceRaymarchLambertMaterial';
@@ -9,3 +10,4 @@ export { ObjectSpaceRaymarchPhysicalMaterial, ObjectSpaceRaymarchPhysicalMateria
 export { ObjectSpaceRaymarchDepthMaterial, ObjectSpaceRaymarchDepthMaterialParameters } from './ObjectSpaceRaymarchDepthMaterial';
 export { ObjectSpaceRaymarchMatcapMaterial, ObjectSpaceRaymarchMatcapMaterialParameters } from './ObjectSpaceRaymarchMatcapMaterial';
 export { ObjectSpaceRaymarchRawMaterial, ObjectSpaceRaymarchRawMaterialParameters } from './ObjectSpaceRaymarchRawMaterial';
+export { RaymarchShaderChunk } from "./shaders/RaymarchShaderChunk";
