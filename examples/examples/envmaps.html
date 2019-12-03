@@ -11,30 +11,59 @@
     </style>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
-    <script src="./js/controls/OrbitControls.js"></script>
-    <script src="../../umd/three-objectspaceraymarching.development.js"></script>
-    <script>
-      const renderer = new THREE.WebGLRenderer();
+    <script type="module">
+
+      import {
+        WebGLRenderer,
+        Scene,
+        PerspectiveCamera,
+        Mesh,
+        BoxBufferGeometry,
+        PointLight,
+        AmbientLight,
+        ShaderLib,
+        ShaderMaterial,
+        CubeTextureLoader,
+        Vector3,
+        Color,
+        RGBFormat,
+        CubeReflectionMapping,
+        CubeRefractionMapping,
+        BackSide,
+        sRGBEncoding,
+        Clock,
+      } from './jsm/three.module.js';
+
+      import {
+        OrbitControls,
+      } from './jsm/controls/OrbitControls.js';
+
+      import * as dat from './jsm/dat.gui.module.js';
+
+      import {
+        ObjectSpaceRaymarch,
+        ObjectSpaceRaymarchBasicMaterial,
+      } from '../umd/three-raymarch.module.js';
+
+      const renderer = new WebGLRenderer();
       renderer.autoClear = false;
       renderer.setPixelRatio(devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.gammaOutput = true;
       document.body.appendChild(renderer.domElement);
 
-      const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 100000);
+      const camera = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 100000);
       camera.position.set(0, 0, 1000);
-      const cameraCube = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 100000);
+      const cameraCube = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 100000);
 
-      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      const controls = new OrbitControls(camera, renderer.domElement);
       controls.minDistance = 500;
       controls.maxDistance = 2500;
 
-      scene = new THREE.Scene();
-      sceneCube = new THREE.Scene();
+      const scene = new Scene();
+      const sceneCube = new Scene();
 
-      const ambient = new THREE.AmbientLight(0xffffff);
+      const ambient = new AmbientLight(0xffffff);
       scene.add(ambient);
 
       const textureCube = (function() {
@@ -44,27 +73,32 @@
           r + "posy.jpg", r + "negy.jpg",
           r + "posz.jpg", r + "negz.jpg",
         ];
-        const textureCube = new THREE.CubeTextureLoader().load(urls);
-        textureCube.format = THREE.RGBFormat;
-        textureCube.mapping = THREE.CubeReflectionMapping;
-        textureCube.encoding = THREE.sRGBEncoding;
+        const textureCube = new CubeTextureLoader().load(urls);
+        textureCube.format = RGBFormat;
+        textureCube.mapping = CubeReflectionMapping;
+        textureCube.encoding = sRGBEncoding;
         return textureCube;
       }());
 
-      const cubeShader = THREE.ShaderLib['cube'];
-      const cubeMaterial = new THREE.ShaderMaterial({
+      const cubeShader = ShaderLib['cube'];
+      const cubeMaterial = new ShaderMaterial({
         fragmentShader: cubeShader.fragmentShader,
         vertexShader: cubeShader.vertexShader,
         uniforms: cubeShader.uniforms,
         depthWrite: false,
-        side: THREE.BackSide,
+        side: BackSide,
       });
 
       cubeMaterial.uniforms['tCube'].value = textureCube;
-      cubeMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(100, 100, 100), cubeMaterial);
+      Object.defineProperty(cubeMaterial, 'map', {
+        get: function() {
+          return this.uniforms.tCube.value;
+        }
+      });
+      const cubeMesh = new Mesh(new BoxBufferGeometry(100, 100, 100), cubeMaterial);
       sceneCube.add(cubeMesh);
 
-      const raymarchMaterial = new THREE_RAYMARCH.ObjectSpaceRaymarchBasicMaterial({
+      const raymarchMaterial = new ObjectSpaceRaymarchBasicMaterial({
         getDistanceChunk: `
 float random(float x){
   return fract(sin(x * 12.9898) * 43758.5453);
@@ -102,9 +136,9 @@ float getDistance(vec3 p) {
         envMap: textureCube,
         reflectivity: 1.0,
       });
-      const raymarch = new THREE_RAYMARCH.ObjectSpaceRaymarch({
+      const raymarch = new ObjectSpaceRaymarch({
         material: raymarchMaterial,
-        size: new THREE.Vector3(800, 800, 800),
+        size: new Vector3(800, 800, 800),
       })
       scene.add(raymarch);
 
@@ -117,7 +151,7 @@ float getDistance(vec3 p) {
         renderer.setSize(window.innerWidth, window.innerHeight);
       });
 
-      const clock = new THREE.Clock(true);
+      const clock = new Clock(true);
       const animate = () => {
         requestAnimationFrame(animate);
 
