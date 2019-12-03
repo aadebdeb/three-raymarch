@@ -20,7 +20,7 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "build:umd": "webpack",
     "doc": "typedoc src --tsconfig ./tsconfig.esm.json",
-    "deploy": "npm run doc && rm -rf ./deploydir && mkdir -p ./deploydir && cp -r ./examples ./deploydir/examples && cp -r ./docs ./deploydir/docs && gh-pages -d deploydir"
+    "deploy": "npm run doc && rm -rf ./deploydir && mkdir -p ./deploydir && cp -r ./build ./deploydir/build && cp -r ./examples ./deploydir/examples && cp -r ./docs ./deploydir/docs && gh-pages -d deploydir"
   },
   "repository": {
     "type": "git",
