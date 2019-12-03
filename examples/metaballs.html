@@ -11,25 +11,41 @@
     </style>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
-    <script src="../../umd/three-objectspaceraymarching.production.js"></script>
-    <script>
-      const renderer = new THREE.WebGLRenderer();
+    <script type="module">
+
+      import {
+        WebGLRenderer,
+        Scene,
+        PerspectiveCamera,
+        DirectionalLight,
+        AmbientLight,
+        Vector3,
+        Color,
+        Clock,
+      } from './jsm/three.module.js';
+
+      import * as dat from './jsm/dat.gui.module.js';
+
+      import {
+        ObjectSpaceRaymarch,
+        ObjectSpaceRaymarchPhysicalMaterial,
+      } from '../umd/three-raymarch.module.js';
+
+      const renderer = new WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x444444);
+      const scene = new Scene();
+      scene.background = new Color(0x444444);
 
-      const ambLight = new THREE.AmbientLight(0x333333);
+      const ambLight = new AmbientLight(0x333333);
       scene.add(ambLight);
 
 
-      const dirLight = new THREE.DirectionalLight();
+      const dirLight = new DirectionalLight();
       scene.add(dirLight);
 
-      const material = new THREE_RAYMARCH.ObjectSpaceRaymarchPhysicalMaterial({
+      const material = new ObjectSpaceRaymarchPhysicalMaterial({
         getDistanceChunk: `
 float random(float x){
   return fract(sin(x * 12.9898) * 43758.5453);
@@ -78,16 +94,16 @@ ObjectSpaceRaymarchPhysicalMaterial getMaterial(vec3 position, vec3 worldPositio
         },
         maxRaymarchIteration: 96,
       });
-      const raymarch = new THREE_RAYMARCH.ObjectSpaceRaymarch({
+      const raymarch = new ObjectSpaceRaymarch({
         material: material,
-        size: new THREE.Vector3(10, 10, 10)
+        size: new Vector3(10, 10, 10)
       });
       scene.add(raymarch);
 
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
       camera.position.z = 10.0;
 
-      const clock = new THREE.Clock(true);
+      const clock = new Clock(true);
 
       function animate() {
         requestAnimationFrame(animate);

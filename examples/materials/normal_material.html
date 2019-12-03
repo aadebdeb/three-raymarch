@@ -11,20 +11,32 @@
     </style>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
-    <script src="../../umd/three-objectspaceraymarching.development.js"></script>
-    <script>
+    <script type="module">
 
-      const renderer = new THREE.WebGLRenderer();
+      import {
+        WebGLRenderer,
+        Scene,
+        PerspectiveCamera,
+        Vector3,
+        Color,
+      } from '../jsm/three.module.js';
+
+      import * as dat from '../jsm/dat.gui.module.js';
+
+      import {
+        ObjectSpaceRaymarch,
+        ObjectSpaceRaymarchNormalMaterial,
+      } from '../../umd/three-raymarch.module.js';
+
+      const renderer = new WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x444444);
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const scene = new Scene();
+      scene.background = new Color(0x444444);
+      const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-      const material = new THREE_RAYMARCH.ObjectSpaceRaymarchNormalMaterial({
+      const material = new ObjectSpaceRaymarchNormalMaterial({
         getDistanceChunk: `
           float sdSphere(vec3 p, float r) {
             return length(p) - r;
@@ -36,9 +48,9 @@
           }`,
       });
 
-      const raymarch = new THREE_RAYMARCH.ObjectSpaceRaymarch({
+      const raymarch = new ObjectSpaceRaymarch({
         material: material,
-        size: new THREE.Vector3(2, 2, 2)
+        size: new Vector3(2, 2, 2)
       });
       scene.add(raymarch);
 

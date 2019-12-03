@@ -11,13 +11,35 @@
     </style>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
-    <script src="../../umd/three-objectspaceraymarching.development.js"></script>
-    <script>
+    <script type="module">
 
-      const textureLoader = new THREE.TextureLoader();
-      const cubeTextureLoader = new THREE.CubeTextureLoader();
+      import {
+        WebGLRenderer,
+        Scene,
+        PerspectiveCamera,
+        PointLight,
+        AmbientLight,
+        TextureLoader,
+        CubeTextureLoader,
+        Vector3,
+        Color,
+        RGBFormat,
+        CubeRefractionMapping,
+        MultiplyOperation,
+        MixOperation,
+        AddOperation,
+        NearestFilter,
+      } from '../jsm/three.module.js';
+
+      import * as dat from '../jsm/dat.gui.module.js';
+
+      import {
+        ObjectSpaceRaymarch,
+        ObjectSpaceRaymarchToonMaterial,
+      } from '../../umd/three-raymarch.module.js';
+
+      const textureLoader = new TextureLoader();
+      const cubeTextureLoader = new CubeTextureLoader();
 
       const envMaps = (function() {
         const path = '../textures/cube/SwedishRoyalCastle/';
@@ -28,10 +50,10 @@
           path + 'pz' + format, path + 'nz' + format
         ];
         const reflectionCube = cubeTextureLoader.load(urls);
-        reflectionCube.format = THREE.RGBFormat;
+        reflectionCube.format = RGBFormat;
         const refractionCube = cubeTextureLoader.load(urls);
-        refractionCube.mapping = THREE.CubeRefractionMapping;
-        refractionCube.format = THREE.RGBFormat;
+        refractionCube.mapping = CubeRefractionMapping;
+        refractionCube.format = RGBFormat;
         return {
           none: null,
           reflection: reflectionCube,
@@ -41,11 +63,11 @@
 
       const gradientMaps = (function() {
         const threeTone = textureLoader.load('../textures/gradientMaps/threeTone.jpg');
-        threeTone.minFilter = THREE.NearestFilter;
-        threeTone.magFilter = THREE.NearestFilter;
+        threeTone.minFilter = NearestFilter;
+        threeTone.magFilter = NearestFilter;
         const fiveTone = textureLoader.load('../textures/gradientMaps/fiveTone.jpg');
-        fiveTone.minFilter = THREE.NearestFilter;
-        fiveTone.magFilter = THREE.NearestFilter;
+        fiveTone.minFilter = NearestFilter;
+        fiveTone.magFilter = NearestFilter;
         return {
           none: null,
           threeTone: threeTone,
@@ -53,20 +75,20 @@
         }
       }());
 
-      const renderer = new THREE.WebGLRenderer();
+      const renderer = new WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x444444);
+      const scene = new Scene();
+      scene.background = new Color(0x444444);
 
-      const ambientLight = new THREE.AmbientLight(0x000000);
+      const ambientLight = new AmbientLight(0x000000);
       scene.add(ambientLight);
 
       const lights = [
-        new THREE.PointLight(0xffffff, 1, 0),
-        new THREE.PointLight(0xffffff, 1, 0),
-        new THREE.PointLight(0xffffff, 1, 0)
+        new PointLight(0xffffff, 1, 0),
+        new PointLight(0xffffff, 1, 0),
+        new PointLight(0xffffff, 1, 0)
       ];
       lights[0].position.set(0, 200, 0);
       lights[1].position.set(100, 200, 100);
@@ -75,9 +97,9 @@
       scene.add( lights[1] );
       scene.add( lights[2] );
 
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-      const material = new THREE_RAYMARCH.ObjectSpaceRaymarchToonMaterial({
+      const material = new ObjectSpaceRaymarchToonMaterial({
         getDistanceChunk: `
           float sdSphere(vec3 p, float r) {
             return length(p) - r;
@@ -87,12 +109,12 @@
             p = mod(p, 1.0) - 0.5;
             return sdSphere(p, 0.4);
           }`,
-        color: new THREE.Color(0x2194ce),
+        color: new Color(0x2194ce),
       });
 
-      const raymarch = new THREE_RAYMARCH.ObjectSpaceRaymarch({
+      const raymarch = new ObjectSpaceRaymarch({
         material: material,
-        size: new THREE.Vector3(2, 2, 2)
+        size: new Vector3(2, 2, 2)
       });
       scene.add(raymarch);
 
@@ -151,13 +173,13 @@
       });
       toonMaterialFolder.add(parameters.toonMaterial, 'combine', ['multiply', 'mix', 'add']).onChange((v) => {
         if (v === 'multiply') {
-          material.combine = THREE.MultiplyOperation;
+          material.combine = MultiplyOperation;
           material.needsUpdate = true;
         } else if (v === 'mix') {
-          material.combine = THREE.MixOperation;
+          material.combine = MixOperation;
           material.needsUpdate = true;
         } else if (v === 'add') {
-          material.combine = THREE.AddOperation;
+          material.combine = AddOperation;
           material.needsUpdate = true;
         }
       });
