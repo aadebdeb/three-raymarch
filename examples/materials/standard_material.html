@@ -11,16 +11,31 @@
     </style>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
     <script type="module">
 
       import {
+        WebGLRenderer,
+        Scene,
+        PerspectiveCamera,
+        PointLight,
+        AmbientLight,
+        CubeTextureLoader,
+        Vector3,
+        Color,
+        RGBFormat,
+        CubeRefractionMapping,
+        MultiplyOperation,
+        MixOperation,
+        AddOperation,
+      } from '../jsm/three.module.js';
+
+      import {
         ObjectSpaceRaymarch,
         ObjectSpaceRaymarchStandardMaterial,
-      } from '../../umd/three-raymarch.jsm.js';
+      } from '../../umd/three-raymarch.module.js';
 
-      const cubeTextureLoader = new THREE.CubeTextureLoader();
+      const cubeTextureLoader = new CubeTextureLoader();
 
       const envMaps = (function() {
         const path = '../textures/cube/SwedishRoyalCastle/';
@@ -31,10 +46,10 @@
           path + 'pz' + format, path + 'nz' + format
         ];
         const reflectionCube = cubeTextureLoader.load(urls);
-        reflectionCube.format = THREE.RGBFormat;
+        reflectionCube.format = RGBFormat;
         const refractionCube = cubeTextureLoader.load(urls);
-        refractionCube.mapping = THREE.CubeRefractionMapping;
-        refractionCube.format = THREE.RGBFormat;
+        refractionCube.mapping = CubeRefractionMapping;
+        refractionCube.format = RGBFormat;
         return {
           none: null,
           reflection: reflectionCube,
@@ -42,20 +57,20 @@
         };
       }());
 
-      const renderer = new THREE.WebGLRenderer();
+      const renderer = new WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x444444);
+      const scene = new Scene();
+      scene.background = new Color(0x444444);
 
-      const ambientLight = new THREE.AmbientLight(0x000000);
+      const ambientLight = new AmbientLight(0x000000);
       scene.add(ambientLight);
 
       const lights = [
-        new THREE.PointLight(0xffffff, 1, 0),
-        new THREE.PointLight(0xffffff, 1, 0),
-        new THREE.PointLight(0xffffff, 1, 0)
+        new PointLight(0xffffff, 1, 0),
+        new PointLight(0xffffff, 1, 0),
+        new PointLight(0xffffff, 1, 0)
       ];
       lights[0].position.set(0, 200, 0);
       lights[1].position.set(100, 200, 100);
@@ -64,7 +79,7 @@
       scene.add( lights[1] );
       scene.add( lights[2] );
 
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
       const material = new ObjectSpaceRaymarchStandardMaterial({
         getDistanceChunk: `
@@ -76,15 +91,15 @@
             p = mod(p, 1.0) - 0.5;
             return sdSphere(p, 0.4);
           }`,
-        color: new THREE.Color(0x2194ce),
-        emissive: new THREE.Color(0x000000),
+        color: new Color(0x2194ce),
+        emissive: new Color(0x000000),
         roughness: 0.5,
         metalness: 0.5,
       });
 
       const raymarch = new ObjectSpaceRaymarch({
         material: material,
-        size: new THREE.Vector3(2, 2, 2)
+        size: new Vector3(2, 2, 2)
       });
       scene.add(raymarch);
 
@@ -142,13 +157,13 @@
       });
       standardMaterialFolder.add(parameters.standardMaterial, 'combine', ['multiply', 'mix', 'add']).onChange((v) => {
         if (v === 'multiply') {
-          material.combine = THREE.MultiplyOperation;
+          material.combine = MultiplyOperation;
           material.needsUpdate = true;
         } else if (v === 'mix') {
-          material.combine = THREE.MixOperation;
+          material.combine = MixOperation;
           material.needsUpdate = true;
         } else if (v === 'add') {
-          material.combine = THREE.AddOperation;
+          material.combine = AddOperation;
           material.needsUpdate = true;
         }
       });

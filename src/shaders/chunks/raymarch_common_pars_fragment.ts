@@ -3,7 +3,6 @@ varying vec3 vPosition;
 varying vec3 vRaymarchNormal;
 
 uniform float opacity;
-uniform bool isOrthographic;
 uniform vec3 cameraDirection;
 uniform mat4 modelMatrix;
 uniform mat4 invModelMatrix;

@@ -11,29 +11,39 @@
     </style>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
     <script type="module">
 
       import {
+        WebGLRenderer,
+        Scene,
+        OrthographicCamera,
+        AmbientLight,
+        PointLight,
+        Vector3,
+        Color,
+      } from './jsm/three.module.js';
+
+
+      import {
         ObjectSpaceRaymarch,
         ObjectSpaceRaymarchPhongMaterial,
-      } from '../umd/three-raymarch.jsm.js';
+      } from '../umd/three-raymarch.module.js';
 
-      const renderer = new THREE.WebGLRenderer();
+      const renderer = new WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x444444);
+      const scene = new Scene();
+      scene.background = new Color(0x444444);
 
-      const ambientLight = new THREE.AmbientLight(0x000000);
+      const ambientLight = new AmbientLight(0x000000);
       scene.add(ambientLight);
 
       const lights = [
-        new THREE.PointLight(0xffffff, 1, 0),
-        new THREE.PointLight(0xffffff, 1, 0),
-        new THREE.PointLight(0xffffff, 1, 0)
+        new PointLight(0xffffff, 1, 0),
+        new PointLight(0xffffff, 1, 0),
+        new PointLight(0xffffff, 1, 0)
       ];
       lights[0].position.set(0, 200, 0);
       lights[1].position.set(100, 200, 100);
@@ -44,8 +54,7 @@
 
       let height = 10.0;
       let width = height * window.innerWidth / window.innerHeight;
-      const camera = new THREE.OrthographicCamera(-width, width, -height, height, 0.1, 1000.0);
-      //   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const camera = new OrthographicCamera(-width, width, -height, height, 0.1, 1000.0);
 
       const material = new ObjectSpaceRaymarchPhongMaterial({
         getDistanceChunk: `
@@ -57,12 +66,12 @@
             p = mod(p, 1.0) - 0.5;
             return sdSphere(p, 0.2);
           }`,  
-        color: new THREE.Color(0x2194ce),
+        color: new Color(0x2194ce),
       });
 
       const raymarch = new ObjectSpaceRaymarch({
         material: material,
-        size: new THREE.Vector3(2, 2, 2)
+        size: new Vector3(2, 2, 2)
       });
       scene.add(raymarch);
 

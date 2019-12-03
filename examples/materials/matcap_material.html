@@ -11,29 +11,37 @@
     </style>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
     <script type="module">
 
       import {
+        WebGLRenderer,
+        Scene,
+        PerspectiveCamera,
+        TextureLoader,
+        Vector3,
+        Color,
+      } from '../jsm/three.module.js';
+
+      import {
         ObjectSpaceRaymarch,
         ObjectSpaceRaymarchMatcapMaterial,
-      } from '../../umd/three-raymarch.jsm.js';
+      } from '../../umd/three-raymarch.module.js';
 
-      const textureLoader = new THREE.TextureLoader();
+      const textureLoader = new TextureLoader();
 
       const matcaps = {
         none: null,
         porcelainWhite: textureLoader.load('../textures/matcaps/matcap-porcelain-white.jpg'),
       };
 
-      const renderer = new THREE.WebGLRenderer();
+      const renderer = new WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
 
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x444444);
-      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const scene = new Scene();
+      scene.background = new Color(0x444444);
+      const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
       const material = new ObjectSpaceRaymarchMatcapMaterial({
         getDistanceChunk: `
@@ -50,7 +58,7 @@
 
       const raymarch = new ObjectSpaceRaymarch({
         material: material,
-        size: new THREE.Vector3(2, 2, 2)
+        size: new Vector3(2, 2, 2)
       });
       scene.add(raymarch);
 

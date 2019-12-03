@@ -6,7 +6,7 @@ const development = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'umd'),
-    filename: 'three-objectspaceraymarching.development.js',
+    filename: 'three-raymarch.js',
     library: 'THREE_RAYMARCH',
     libraryTarget: 'umd',
   },
@@ -34,7 +34,7 @@ const production = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'umd'),
-    filename: 'three-objectspaceraymarching.production.js',
+    filename: 'three-raymarch.min.js',
     library: 'THREE_RAYMARCH',
     libraryTarget: 'umd',
   },
@@ -62,7 +62,7 @@ const devJsm = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'umd'),
-    filename: 'three-raymarch.jsm.js',
+    filename: 'three-raymarch.module.js',
     library: 'THREE_RAYMARCH',
     libraryTarget: 'var',
   },
