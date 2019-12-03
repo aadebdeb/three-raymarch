@@ -28,6 +28,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@purtuga/esm-webpack-plugin": "^1.2.0",
     "gh-pages": "^2.1.1",
     "three": "^0.110.0",
     "ts-loader": "^6.2.1",

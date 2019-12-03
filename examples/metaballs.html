@@ -13,8 +13,13 @@
   <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
-    <script src="../../umd/three-objectspaceraymarching.production.js"></script>
-    <script>
+    <script type="module">
+
+      import {
+        ObjectSpaceRaymarch,
+        ObjectSpaceRaymarchPhysicalMaterial,
+      } from '../umd/three-raymarch.jsm.js';
+
       const renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.body.appendChild(renderer.domElement);
@@ -29,7 +34,7 @@
       const dirLight = new THREE.DirectionalLight();
       scene.add(dirLight);
 
-      const material = new THREE_RAYMARCH.ObjectSpaceRaymarchPhysicalMaterial({
+      const material = new ObjectSpaceRaymarchPhysicalMaterial({
         getDistanceChunk: `
 float random(float x){
   return fract(sin(x * 12.9898) * 43758.5453);
@@ -78,7 +83,7 @@ ObjectSpaceRaymarchPhysicalMaterial getMaterial(vec3 position, vec3 worldPositio
         },
         maxRaymarchIteration: 96,
       });
-      const raymarch = new THREE_RAYMARCH.ObjectSpaceRaymarch({
+      const raymarch = new ObjectSpaceRaymarch({
         material: material,
         size: new THREE.Vector3(10, 10, 10)
       });

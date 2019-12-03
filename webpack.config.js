@@ -1,4 +1,5 @@
 const path = require('path');
+const EsmWebpackPlugin = require('@purtuga/esm-webpack-plugin');
 
 const development = {
   mode: 'development',
@@ -56,4 +57,35 @@ const production = {
   }
 };
 
-module.exports = [development, production];
+const devJsm = {
+  mode: 'development',
+  entry: './src/index.ts',
+  output: {
+    path: path.resolve(__dirname, 'umd'),
+    filename: 'three-raymarch.jsm.js',
+    library: 'THREE_RAYMARCH',
+    libraryTarget: 'var',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts(x*)?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            configFile: 'tsconfig.umd.json'
+          }
+        }
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
+  },
+  plugins: [
+    new EsmWebpackPlugin()
+  ]
+};
+
+module.exports = [development, production, devJsm];

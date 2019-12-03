@@ -13,8 +13,12 @@
   <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.js"></script>
-    <script src="../umd/three-objectspaceraymarching.production.js"></script>
-    <script>
+    <script type="module">
+
+      import {
+        ObjectSpaceRaymarch,
+        ObjectSpaceRaymarchPhongMaterial,
+      } from '../umd/three-raymarch.jsm.js';
 
       const renderer = new THREE.WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -43,7 +47,7 @@
       const camera = new THREE.OrthographicCamera(-width, width, -height, height, 0.1, 1000.0);
       //   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-      const material = new THREE_RAYMARCH.ObjectSpaceRaymarchPhongMaterial({
+      const material = new ObjectSpaceRaymarchPhongMaterial({
         getDistanceChunk: `
           float sdSphere(vec3 p, float r) {
             return length(p) - r;
@@ -56,7 +60,7 @@
         color: new THREE.Color(0x2194ce),
       });
 
-      const raymarch = new THREE_RAYMARCH.ObjectSpaceRaymarch({
+      const raymarch = new ObjectSpaceRaymarch({
         material: material,
         size: new THREE.Vector3(2, 2, 2)
       });
