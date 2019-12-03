@@ -89,7 +89,12 @@
         side: BackSide,
       });
 
-      cubeMaterial.uniforms['envMap'].value = textureCube;
+      cubeMaterial.uniforms['tCube'].value = textureCube;
+      Object.defineProperty(cubeMaterial, 'map', {
+        get: function() {
+          return this.uniforms.tCube.value;
+        }
+      });
       const cubeMesh = new Mesh(new BoxBufferGeometry(100, 100, 100), cubeMaterial);
       sceneCube.add(cubeMesh);
 
