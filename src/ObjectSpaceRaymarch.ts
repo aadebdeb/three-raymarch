@@ -28,16 +28,16 @@ export class ObjectSpaceRaymarch extends Mesh {
     this.size = size;
     this.invModelMatrix = new Matrix4();
     this.mvpMatrix = new Matrix4();
-    this.onBeforeRender = (_, __, camera) => {
+    this.onBeforeRender = (_renderer, _scene, camera, _geometry, material) => {
       this.invModelMatrix.getInverse(this.matrixWorld);
-      material.uniforms['invModelMatrix'].value = this.invModelMatrix;
+      (material as ObjectSpaceRaymarchMaterial).uniforms['invModelMatrix'].value = this.invModelMatrix;
       this.mvpMatrix.multiplyMatrices(camera.matrixWorldInverse, this.matrixWorld);
       this.mvpMatrix.premultiply(camera.projectionMatrix);
-      material.uniforms['mvpMatrix'].value = this.mvpMatrix;
-      material.uniforms['size'].value = this.size;
+      (material as ObjectSpaceRaymarchMaterial).uniforms['mvpMatrix'].value = this.mvpMatrix;
+      (material as ObjectSpaceRaymarchMaterial).uniforms['size'].value = this.size;
       const isOrthographic = !!(camera as any).isOrthographicCamera;
-      material.uniforms['isOrthographic'].value = isOrthographic;
-      material.uniforms['cameraDirection'].value = new Vector3(0, 0, 1).applyMatrix4(camera.matrixWorld).normalize();
+      (material as ObjectSpaceRaymarchMaterial).uniforms['isOrthographic'].value = isOrthographic;
+      (material as ObjectSpaceRaymarchMaterial).uniforms['cameraDirection'].value = new Vector3(0, 0, 1).applyMatrix4(camera.matrixWorld).normalize();
     };
   }
 

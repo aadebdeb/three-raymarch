@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Test of Fog</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import {
+        WebGLRenderer,
+        Scene,
+        Mesh,
+        SphereBufferGeometry,
+        PerspectiveCamera,
+        DirectionalLight,
+        MeshBasicMaterial,
+        MeshLambertMaterial,
+        MeshPhongMaterial,
+        MeshStandardMaterial,
+        MeshPhysicalMaterial,
+        Vector3,
+      } from '../jsm/three.module.js';
+
+      import * as dat from '../jsm/dat.gui.module.js';
+
+      import {
+        ObjectSpaceRaymarch,
+        ObjectSpaceRaymarchBasicMaterial,
+        ObjectSpaceRaymarchLambertMaterial,
+        ObjectSpaceRaymarchPhongMaterial,
+      } from '../../umd/three-raymarch.module.js';
+
+      const renderer = new WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      const scene = new Scene();
+      const dirLight = new DirectionalLight();
+      scene.add(dirLight);
+
+      const meshMaterials = {
+        'basic': new MeshBasicMaterial(),
+        'lambert': new MeshLambertMaterial(),
+        'phong': new MeshPhongMaterial(),
+      };
+      const sphere = new SphereBufferGeometry();
+      const meshes = [];
+      for (let i = 0; i < 5; i++) {
+        meshes[i] = new Mesh(sphere, meshMaterials['basic']);
+        meshes[i].position.set(-1.5, 0.0, -i * 4.0);
+        scene.add(meshes[i]);
+      }
+
+      const raymarchMaterials = {
+        'basic': new ObjectSpaceRaymarchBasicMaterial({
+          getDistanceChunk: `
+          float getDistance(vec3 p) {
+            return length(p) - 1.0;
+          }
+        `,
+        }),
+        'lambert': new ObjectSpaceRaymarchLambertMaterial({
+          getDistanceChunk: `
+          float getDistance(vec3 p) {
+            return length(p) - 1.0;
+          }
+        `,
+        }),
+        'phong': new ObjectSpaceRaymarchPhongMaterial({
+          getDistanceChunk: `
+          float getDistance(vec3 p) {
+            return length(p) - 1.0;
+          }
+        `,
+        }),
+      };
+      const raymarches = [];
+      for (let i = 0; i < 5; i++) {
+        const raymarch = new ObjectSpaceRaymarch({
+          material: raymarchMaterials['basic'],
+          size: new Vector3(2, 2, 2),
+        });
+        raymarch.position.set(1.5, 0.0, -i * 4.0);
+        scene.add(raymarch);
+        raymarches.push(raymarch);
+      }
+
+      const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+      camera.position.set(0.0, 5.0, 10.0);
+      camera.lookAt(new Vector3(0.0, 0.0, 0.0));
+
+      const parameters = {
+        material: 'basic',
+        fog: 'linear',
+      };
+
+      const gui = new dat.GUI();
+      gui.add(parameters, 'material', ['basic', 'lambert', 'phong', 'standard', 'physical', 'normal', 'depth', 'matcap', 'toon']).onChange((v) => {
+        meshes.forEach(mesh => mesh.material = meshMaterials[v]);
+        raymarches.forEach(raymarch => raymarch.material = raymarchMaterials[v]);
+      });
+      gui.add(parameters, 'fog', ['linear', 'exp2']).onChange((v) => {
+
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      }
+
+      addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      animate();
+    </script>
+  </body>
+</html>
