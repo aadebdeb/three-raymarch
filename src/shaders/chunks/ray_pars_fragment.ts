@@ -11,21 +11,32 @@ Ray createPerspectiveRay() {
   );
 }
 
+vec3 getCameraDirection() {
+  // camera +z direction
+  return vec3(viewMatrix[2][0], viewMatrix[2][1], viewMatrix[2][2]);
+}
+
 Ray createOrthographicRay() {
+  vec3 cameraDirection = getCameraDirection();
   return Ray(
     vPosition + dot(vPosition - cameraPosition, cameraDirection) * cameraDirection,
     cameraDirection
   );
 }
 
+bool isOrthographicCamera() {
+  return projectionMatrix[3][3] == 1.0;
+}
+
 Ray createRay() {
-  if (isOrthographic) {
+  if (isOrthographicCamera()) {
     return createOrthographicRay();
   }
   return createPerspectiveRay();
 }
 
 Ray convertRayFromWorldToObject(Ray ray) {
+  mat4 invModelMatrix = invertModelMatrix(modelMatrix);
   vec3 origin = (invModelMatrix * vec4(ray.origin, 1.0)).xyz;
   vec3 direction = normalize((invModelMatrix * vec4(ray.direction, 0.0)).xyz);
   return Ray(origin, direction);
