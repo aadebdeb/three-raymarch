@@ -34,7 +34,7 @@
         ObjectSpaceRaymarchBasicMaterial,
         ObjectSpaceRaymarchLambertMaterial,
         ObjectSpaceRaymarchPhongMaterial,
-      } from '../../umd/three-raymarch.module.js';
+      } from '../../build/three-raymarch.module.js';
 
       const renderer = new WebGLRenderer();
       renderer.setSize(window.innerWidth, window.innerHeight);
@@ -59,6 +59,7 @@
 
       const raymarchMaterials = {
         'basic': new ObjectSpaceRaymarchBasicMaterial({
+          size: new Vector3(2, 2, 2),
           getDistanceChunk: `
           float getDistance(vec3 p) {
             return length(p) - 1.0;
@@ -66,6 +67,7 @@
         `,
         }),
         'lambert': new ObjectSpaceRaymarchLambertMaterial({
+          size: new Vector3(2, 2, 2),
           getDistanceChunk: `
           float getDistance(vec3 p) {
             return length(p) - 1.0;
@@ -73,6 +75,7 @@
         `,
         }),
         'phong': new ObjectSpaceRaymarchPhongMaterial({
+          size: new Vector3(2, 2, 2),
           getDistanceChunk: `
           float getDistance(vec3 p) {
             return length(p) - 1.0;
@@ -82,10 +85,7 @@
       };
       const raymarches = [];
       for (let i = 0; i < 5; i++) {
-        const raymarch = new ObjectSpaceRaymarch({
-          material: raymarchMaterials['basic'],
-          size: new Vector3(2, 2, 2),
-        });
+        const raymarch = new ObjectSpaceRaymarch(raymarchMaterials['basic']);
         raymarch.position.set(1.5, 0.0, -i * 4.0);
         scene.add(raymarch);
         raymarches.push(raymarch);

@@ -1,4 +1,4 @@
-import { ShaderMaterial, IUniform, UniformsUtils } from 'three';
+import { ShaderMaterial, IUniform, UniformsUtils, Vector3 } from 'three';
 import { RaymarchShaderChunk } from './shaders/RaymarchShaderChunk';
 
 const INCLUDE_PATTERN = /^[ \t]*#include +<([\w\d./]+)>/gm;
@@ -16,6 +16,8 @@ function resolveIncludes(fragmentShader: string, overrideChunks: {[key: string]:
 }
 
 export interface ObjectSpaceRaymarchMaterialParameters {
+  /** Size of object space (box). */
+  size?: Vector3,
   /** Max raymarching iteration. */
   maxRaymarchIteration?: number,
   /** Distance to judge hit of ray and surface. */
@@ -38,6 +40,7 @@ export abstract class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
     fragmentShader: string,
     overrideChunks: {[key: string]: string},
     {
+      size = new Vector3(1, 1, 1),
       maxRaymarchIteration = 32,
       hitDistance = 0.001,
       differentiateDistance = 0.001,
@@ -59,11 +62,7 @@ export abstract class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
           'hitDistance': { value: hitDistance },
           'differentiateDistance': { value: differentiateDistance },
           'distanceScale': { value: distanceScale },
-          'invModelMatrix': { value: null },
-          'mvpMatrix': { value: null },
-          'size': { value: null },
-          'isOrthographic': { value: false },
-          'cameraDirection': { value: null },
+          'size': { value: size },
         }
       ]),
       defines: Object.assign(
@@ -74,6 +73,14 @@ export abstract class ObjectSpaceRaymarchMaterial extends ShaderMaterial {
       ),
     });
     this.extensions.fragDepth = true;
+  }
+
+  get size(): Vector3 {
+    return this.uniforms['size'].value;
+  }
+
+  set size(size: Vector3) {
+    this.uniforms['size'].value = size.clone();
   }
 
   get maxRaymarchIteration(): number {

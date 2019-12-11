@@ -45,6 +45,7 @@
       const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
       const material = new ObjectSpaceRaymarchMatcapMaterial({
+        size: new Vector3(2, 2, 2),
         getDistanceChunk: `
           float sdSphere(vec3 p, float r) {
             return length(p) - r;
@@ -57,10 +58,7 @@
         matcap: matcaps.porcelainWhite,
       });
 
-      const raymarch = new ObjectSpaceRaymarch({
-        material: material,
-        size: new Vector3(2, 2, 2)
-      });
+      const raymarch = new ObjectSpaceRaymarch(material);
       scene.add(raymarch);
 
       camera.position.z = 5.0;
@@ -86,9 +84,9 @@
 
       const gui = new dat.GUI();
       const sizeFolder = gui.addFolder('ObjectSpaceRaymarch');
-      sizeFolder.add(parameters.ObjectSpaceRaymarch, 'sizeX', 0.0, 5.0).onChange((v) => raymarch.size.x = v);
-      sizeFolder.add(parameters.ObjectSpaceRaymarch, 'sizeY', 0.0, 5.0).onChange((v) => raymarch.size.y = v);
-      sizeFolder.add(parameters.ObjectSpaceRaymarch, 'sizeZ', 0.0, 5.0).onChange((v) => raymarch.size.z = v);
+      sizeFolder.add(parameters.ObjectSpaceRaymarch, 'sizeX', 0.0, 5.0).onChange((v) => material.size.x = v);
+      sizeFolder.add(parameters.ObjectSpaceRaymarch, 'sizeY', 0.0, 5.0).onChange((v) => material.size.y = v);
+      sizeFolder.add(parameters.ObjectSpaceRaymarch, 'sizeZ', 0.0, 5.0).onChange((v) => material.size.z = v);
       const materialFolder = gui.addFolder('ObjectSpaceRaymarchMaterial');
       materialFolder.add(parameters.material, 'transparent').onChange((v) => material.transparent = v);
       materialFolder.add(parameters.material, 'opacity', 0, 1).onChange((v) => material.opacity = v);

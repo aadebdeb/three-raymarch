@@ -46,6 +46,7 @@
       scene.add(dirLight);
 
       const material = new ObjectSpaceRaymarchPhysicalMaterial({
+        size: new Vector3(10, 10, 10),
         getDistanceChunk: `
 float random(float x){
   return fract(sin(x * 12.9898) * 43758.5453);
@@ -94,10 +95,7 @@ ObjectSpaceRaymarchPhysicalMaterial getMaterial(vec3 position, vec3 worldPositio
         },
         maxRaymarchIteration: 96,
       });
-      const raymarch = new ObjectSpaceRaymarch({
-        material: material,
-        size: new Vector3(10, 10, 10)
-      });
+      const raymarch = new ObjectSpaceRaymarch(material);
       scene.add(raymarch);
 
       const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);

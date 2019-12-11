@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Metaballs</title>
+    <title>Environment maps</title>
     <style>
       body {
         margin: 0;
@@ -99,6 +99,7 @@
       sceneCube.add(cubeMesh);
 
       const raymarchMaterial = new ObjectSpaceRaymarchBasicMaterial({
+        size: new Vector3(800, 800, 800),
         getDistanceChunk: `
 float random(float x){
   return fract(sin(x * 12.9898) * 43758.5453);
@@ -136,10 +137,7 @@ float getDistance(vec3 p) {
         envMap: textureCube,
         reflectivity: 1.0,
       });
-      const raymarch = new ObjectSpaceRaymarch({
-        material: raymarchMaterial,
-        size: new Vector3(800, 800, 800),
-      })
+      const raymarch = new ObjectSpaceRaymarch(raymarchMaterial);
       scene.add(raymarch);
 
       addEventListener('resize', () => {
