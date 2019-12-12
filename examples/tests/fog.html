@@ -18,13 +18,21 @@
         Mesh,
         SphereBufferGeometry,
         PerspectiveCamera,
+        AmbientLight,
         DirectionalLight,
         MeshBasicMaterial,
         MeshLambertMaterial,
         MeshPhongMaterial,
         MeshStandardMaterial,
         MeshPhysicalMaterial,
+        MeshNormalMaterial,
+        MeshDepthMaterial,
+        MeshMatcapMaterial,
+        MeshToonMaterial,
+        Fog,
+        FogExp2,
         Vector3,
+        Color,
       } from '../jsm/three.module.js';
 
       import * as dat from '../jsm/dat.gui.module.js';
@@ -34,6 +42,12 @@
         ObjectSpaceRaymarchBasicMaterial,
         ObjectSpaceRaymarchLambertMaterial,
         ObjectSpaceRaymarchPhongMaterial,
+        ObjectSpaceRaymarchStandardMaterial,
+        ObjectSpaceRaymarchPhysicalMaterial,
+        ObjectSpaceRaymarchNormalMaterial,
+        ObjectSpaceRaymarchDepthMaterial,
+        ObjectSpaceRaymarchMatcapMaterial,
+        ObjectSpaceRaymarchToonMaterial,
       } from '../../build/three-raymarch.module.js';
 
       const renderer = new WebGLRenderer();
@@ -41,6 +55,8 @@
       document.body.appendChild(renderer.domElement);
 
       const scene = new Scene();
+      const ambLight = new AmbientLight(0x333333);
+      scene.add(ambLight);
       const dirLight = new DirectionalLight();
       scene.add(dirLight);
 
@@ -48,12 +64,18 @@
         'basic': new MeshBasicMaterial(),
         'lambert': new MeshLambertMaterial(),
         'phong': new MeshPhongMaterial(),
+        'standard': new MeshStandardMaterial(),
+        'physical': new MeshPhysicalMaterial(),
+        'normal': new MeshNormalMaterial(),
+        'depth': new MeshDepthMaterial(),
+        'matcap': new MeshMatcapMaterial(),
+        'toon': new MeshToonMaterial(),
       };
-      const sphere = new SphereBufferGeometry();
+      const sphere = new SphereBufferGeometry(1, 32, 32);
       const meshes = [];
-      for (let i = 0; i < 5; i++) {
+      for (let i = 1; i <= 10; i++) {
         meshes[i] = new Mesh(sphere, meshMaterials['basic']);
-        meshes[i].position.set(-1.5, 0.0, -i * 4.0);
+        meshes[i].position.set(-1.5, 0.0, -i * 5.0);
         scene.add(meshes[i]);
       }
 
@@ -82,22 +104,85 @@
           }
         `,
         }),
+        'standard': new ObjectSpaceRaymarchStandardMaterial({
+          size: new Vector3(2, 2, 2),
+          getDistanceChunk: `
+          float getDistance(vec3 p) {
+            return length(p) - 1.0;
+          }
+        `,
+        }),
+        'physical': new ObjectSpaceRaymarchPhysicalMaterial({
+          size: new Vector3(2, 2, 2),
+          getDistanceChunk: `
+          float getDistance(vec3 p) {
+            return length(p) - 1.0;
+          }
+        `,
+        }),
+        'normal': new ObjectSpaceRaymarchNormalMaterial({
+          size: new Vector3(2, 2, 2),
+          getDistanceChunk: `
+          float getDistance(vec3 p) {
+            return length(p) - 1.0;
+          }
+        `,
+        }),
+        'depth': new ObjectSpaceRaymarchDepthMaterial({
+          size: new Vector3(2, 2, 2),
+          getDistanceChunk: `
+          float getDistance(vec3 p) {
+            return length(p) - 1.0;
+          }
+        `,
+        }),
+        'matcap': new ObjectSpaceRaymarchMatcapMaterial({
+          size: new Vector3(2, 2, 2),
+          getDistanceChunk: `
+          float getDistance(vec3 p) {
+            return length(p) - 1.0;
+          }
+        `,
+        }),
+        'toon': new ObjectSpaceRaymarchToonMaterial({
+          size: new Vector3(2, 2, 2),
+          getDistanceChunk: `
+          float getDistance(vec3 p) {
+            return length(p) - 1.0;
+          }
+        `,
+        }),
       };
       const raymarches = [];
-      for (let i = 0; i < 5; i++) {
+      for (let i = 1; i <= 10; i++) {
         const raymarch = new ObjectSpaceRaymarch(raymarchMaterials['basic']);
-        raymarch.position.set(1.5, 0.0, -i * 4.0);
+        raymarch.position.set(1.5, 0.0, -i * 5.0);
         scene.add(raymarch);
         raymarches.push(raymarch);
       }
 
+      const fogs = {
+        'none': null,
+        'linear': new Fog(new Color(0x000000), 0, 50),
+        'exp2': new FogExp2(new Color(0x000000), 0.005),
+      };
+
       const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-      camera.position.set(0.0, 5.0, 10.0);
-      camera.lookAt(new Vector3(0.0, 0.0, 0.0));
+      camera.position.set(0.0, 2.0, 0.0);
+      camera.lookAt(new Vector3(0.0, 0.0, -25.0));
 
       const parameters = {
         material: 'basic',
-        fog: 'linear',
+        fog: 'none',
+        linearFog: {
+          color: fogs['linear'].color.getHex(),
+          near: fogs['linear'].near,
+          far: fogs['linear'].far,
+        },
+        exp2Fog: {
+          color: fogs['exp2'].color.getHex(),
+          density: fogs['exp2'].density,
+        }
       };
 
       const gui = new dat.GUI();
@@ -105,9 +190,19 @@
         meshes.forEach(mesh => mesh.material = meshMaterials[v]);
         raymarches.forEach(raymarch => raymarch.material = raymarchMaterials[v]);
       });
-      gui.add(parameters, 'fog', ['linear', 'exp2']).onChange((v) => {
-
+      gui.add(parameters, 'fog', ['none', 'linear', 'exp2']).onChange((v) => {
+        scene.fog = fogs[v];
+        meshes.forEach(mesh => mesh.material.needsUpdate = true);
       });
+      const linearFogFolder = gui.addFolder('linear fog');
+      linearFogFolder.open();
+      linearFogFolder.addColor(parameters.linearFog, 'color').onChange((v) => fogs['linear'].color.setHex(v));
+      linearFogFolder.add(parameters.linearFog, 'near', 0, 100).onChange((v) => fogs['linear'].near = v);
+      linearFogFolder.add(parameters.linearFog, 'far', 0, 100).onChange((v) => fogs['linear'].far = v);
+      const exp2FogFolder = gui.addFolder('exp2 fog');
+      exp2FogFolder.open();
+      exp2FogFolder.addColor(parameters.exp2Fog, 'color').onChange((v) => fogs['exp2'].color.setHex(v));
+      exp2FogFolder.add(parameters.exp2Fog, 'density', 0, 0.2).onChange((v) => fogs['exp2'].density = v);
 
       function animate() {
         requestAnimationFrame(animate);
