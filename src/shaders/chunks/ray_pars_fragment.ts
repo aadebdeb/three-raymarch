@@ -13,7 +13,7 @@ Ray createPerspectiveRay() {
 
 vec3 getCameraDirection() {
   // camera +z direction
-  return vec3(viewMatrix[2][0], viewMatrix[2][1], viewMatrix[2][2]);
+  return vec3(viewMatrix[0][2], viewMatrix[1][2], viewMatrix[2][2]);
 }
 
 Ray createOrthographicRay() {

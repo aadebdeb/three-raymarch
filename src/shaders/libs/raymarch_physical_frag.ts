@@ -23,6 +23,7 @@ uniform float roughness;
 #include <bsdfs>
 #include <lights_pars_begin>
 #include <lights_physical_pars_fragment>
+#include <shadowmap_pars_fragment>
 #include <raymarch_fog_pars_fragment>
 #include <raymarch_common_pars_fragment>
 #include <envmap_common_pars_fragment>

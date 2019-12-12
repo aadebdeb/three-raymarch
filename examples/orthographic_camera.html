@@ -54,7 +54,7 @@
 
       let height = 10.0;
       let width = height * window.innerWidth / window.innerHeight;
-      const camera = new OrthographicCamera(-width, width, -height, height, 0.1, 1000.0);
+      const camera = new OrthographicCamera(-width, width, height, -height, 0.01, 100.0);
 
       const material = new ObjectSpaceRaymarchPhongMaterial({
         size: new Vector3(2, 2, 2),

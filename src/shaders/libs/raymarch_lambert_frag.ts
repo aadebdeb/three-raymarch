@@ -6,6 +6,7 @@ uniform vec3 emissive;
 #include <packing>
 #include <bsdfs>
 #include <lights_pars_begin>
+#include <shadowmap_pars_fragment>
 #include <lights_lambert_pars_fragment>
 #include <raymarch_fog_pars_fragment>
 #include <raymarch_common_pars_fragment>
