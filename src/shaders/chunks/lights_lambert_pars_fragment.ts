@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const lights_lambert_pars_fragments = `
 struct LambertMaterial {
   vec3 diffuseColor;

@@ -1,15 +1,25 @@
 import { UniformsUtils } from 'three';
 import { ObjectSpaceRaymarchStandardMaterial, ObjectSpaceRaymarchStandardMaterialParameters } from './ObjectSpaceRaymarchStandardMaterial';
 
+/**
+ * Parameters of {@link ObjectSpaceRaymarchPhysicalMaterial}.
+ */
 export interface ObjectSpaceRaymarchPhysicalMaterialParameters extends ObjectSpaceRaymarchStandardMaterialParameters {
-  /** Clearcoat level. */
+  /**
+   * Clearcoat level, from 0.0 to 1.0. Default is 0.0.
+   * Equivalent to [MeshPhysicalMaterial.clearcoat](https://threejs.org/docs/index.html#api/en/materials/MeshPhysicalMaterial.clearcoat).
+   */
   clearcoat?: number,
-  /** How rough the clearcoat appears. */
+
+  /**
+   * How rough the clearcoat appears, from 0.0 to 1.0. Default is 0.0.
+   * Equivalent to [MeshPhysicalMaterial.clearcoatRoughness](https://threejs.org/docs/index.html#api/en/materials/MeshPhysicalMaterial.clearcoatRoughness).
+   */
   clearcoatRoughness?: number,
 }
 
 /**
- * A material for object space raymarching equivalent to MeshPhysicalMaterial.
+ * A material for object space raymarching equivalent to [MeshPhysicalMaterial](https://threejs.org/docs/index.html#api/en/materials/MeshPhysicalMaterial).
  */
 export class ObjectSpaceRaymarchPhysicalMaterial extends ObjectSpaceRaymarchStandardMaterial {
   constructor(parameters: ObjectSpaceRaymarchPhysicalMaterialParameters = {}) {
@@ -28,7 +38,10 @@ export class ObjectSpaceRaymarchPhysicalMaterial extends ObjectSpaceRaymarchStan
     }));
   }
 
-    /** Clearcoat level. */
+  /**
+   * Clearcoat level, from 0.0 to 1.0. Default is 0.0.
+   * Equivalent to [MeshPhysicalMaterial.clearcoat](https://threejs.org/docs/index.html#api/en/materials/MeshPhysicalMaterial.clearcoat).
+   */
   get clearcoat(): number {
     return this.uniforms['clearcoat'].value;
   }
@@ -37,7 +50,10 @@ export class ObjectSpaceRaymarchPhysicalMaterial extends ObjectSpaceRaymarchStan
     this.uniforms['clearcoat'].value = clearcoat;
   }
 
-  /** How rough the clearcoat appears. */
+  /**
+   * How rough the clearcoat appears, from 0.0 to 1.0. Default is 0.0.
+   * Equivalent to [MeshPhysicalMaterial.clearcoatRoughness](https://threejs.org/docs/index.html#api/en/materials/MeshPhysicalMaterial.clearcoatRoughness).
+   */
   get clearcoatRoughness(): number {
     return this.uniforms['clearcoatRoughness'].value;
   }

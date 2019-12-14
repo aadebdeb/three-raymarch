@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const raymarch_pars_fragment = `
 vec3 getNormal(vec3 p) {
   vec2 e = vec2(differentiateDistance, 0.0);

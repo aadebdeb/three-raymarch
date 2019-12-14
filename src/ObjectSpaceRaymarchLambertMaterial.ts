@@ -2,24 +2,67 @@ import { Color, CubeTexture, UniformsLib, UniformsUtils, MultiplyOperation } fro
 import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from './ObjectSpaceRaymarchMaterial';
 import { RaymarchShaderChunk } from './shaders/RaymarchShaderChunk';
 
+/**
+ * Parameters of {@link ObjectSpaceRaymarchLambertMaterial}.
+ */
 export interface ObjectSpaceRaymarchLambertMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
-  /** Color of the material. */
-  color?: Color,
-  /** Emmisive color of the material. */
-  emissive?: Color,
-  envMap?: CubeTexture,
-  reflectivity?: number,
-  refractionRatio?: number,
-  combine?: number,
+  /**
+   * Shader chunk which defines `float getDistance(vec3 p)` function.
+   * This function is used to estimate distance.
+   * 
+   * e.g.
+   * ```glsl
+   * float getDistance(vec3 p) {
+   *   p = mod(p, 0.5) - 0.25;
+   *   return length(p) - 0.1;
+   * }
+   * ```
+   */
   getDistanceChunk?: string,
   getMaterialChunk?: string,
+  /**
+   * Color of the material, by default set to white (0xffffff).
+   * Equivalent to [MeshLambertMaterial.color](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.color).
+   */
+  color?: Color,
+
+  /**
+   * Emissive (light) color of the material, essentially a solid color unaffected by other lighting. Default is black.
+   * Equivalent to [MeshLambertMaterial.emissive](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.emissive).
+   */
+  emissive?: Color,
+
+  /**
+   * The environment map. Default is null.
+   * Equivalent to [MeshLambertMaterial.envMap](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.envMap).
+   */
+  envMap?: CubeTexture,
+
+  /**
+   * How to combine the result of the surface's color with the environment map, if any.
+   * Equivalent to [MeahLambertMaterial.combine](https://threejs.org/docs/index.html#api/en/materials/MeahLambertMaterial.combine).
+   */
+  combine?: number,
+
+  /**
+   * How much the environment map affects the surface; also see {@link ObjectSpaceRaymarchLambertMaterial.combine}.
+   * Equivalent to [MeshLambertMaterial.refiectivity](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.reflectivity).
+   */
+  reflectivity?: number,
+
+  /**
+   * The index of refraction (IOR) of air (approximately 1) divided by the index of refraction of the material.
+   * It is used with environment mapping modes [THREE.CubeRefractionMapping](https://threejs.org/docs/index.html#api/en/constants/Textures) and [THREE.EquirectangularRefractionMapping](https://threejs.org/docs/index.html#api/en/constants/Textures).
+   * The refraction ratio should not exceed 1. Default is 0.98.
+   * Equivalent to [MeshLambertMaterial.refractionRatio](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.refractionRatio).
+   */
+  refractionRatio?: number,
 }
 
 /**
- * A material for object space raymarching equivalent to MeshLambertMaterial.
+ * A material for object space raymarching equivalent to [MeshLambertMaterial](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial).
  */
 export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMaterial {
-  combine: number;
   constructor(parameters: ObjectSpaceRaymarchLambertMaterialParameters = {}) {
     const overrideChunks: {[key: string]: string} = {};
     if (parameters.getDistanceChunk) {
@@ -53,7 +96,10 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
     this.fog = true;
   }
 
-  /** Color of the material. */
+  /**
+   * Color of the material, by default set to white (0xffffff).
+   * Equivalent to [MeshLambertMaterial.color](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.color).
+   */
   get color(): Color {
     return this.uniforms['diffuse'].value;
   }
@@ -62,15 +108,22 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
     this.uniforms['diffuse'].value = color.clone();
   }
 
+  /**
+   * Emissive (light) color of the material, essentially a solid color unaffected by other lighting. Default is black.
+   * Equivalent to [MeshLambertMaterial.emissive](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.emissive).
+   */
   get emissive(): Color {
     return this.uniforms['emissive'].value;
   }
 
-  /** Emissive color of the material. */
   set emissive(emissive: Color) {
     this.uniforms['emissive'].value = emissive.clone();
   }
 
+  /**
+   * The environment map. Default is null.
+   * Equivalent to [MeshLambertMaterial.envMap](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.envMap).
+   */
   get envMap(): CubeTexture | null {
     return this.uniforms['envMap'].value;
   }
@@ -80,6 +133,16 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
     this.needsUpdate = true;
   }
 
+  /**
+   * How to combine the result of the surface's color with the environment map, if any.
+   * Equivalent to [MeahLambertMaterial.combine](https://threejs.org/docs/index.html#api/en/materials/MeahLambertMaterial.combine).
+   */
+  combine: number;
+
+  /**
+   * How much the environment map affects the surface; also see {@link ObjectSpaceRaymarchLambertMaterial.combine}.
+   * Equivalent to [MeshLambertMaterial.refiectivity](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.reflectivity).
+   */
   get reflectivity(): number {
     return this.uniforms['reflectivity'].value;
   }
@@ -88,6 +151,12 @@ export class ObjectSpaceRaymarchLambertMaterial extends ObjectSpaceRaymarchMater
     this.uniforms['reflectivity'].value = reflectivity;
   }
 
+  /**
+   * The index of refraction (IOR) of air (approximately 1) divided by the index of refraction of the material.
+   * It is used with environment mapping modes [THREE.CubeRefractionMapping](https://threejs.org/docs/index.html#api/en/constants/Textures) and [THREE.EquirectangularRefractionMapping](https://threejs.org/docs/index.html#api/en/constants/Textures).
+   * The refraction ratio should not exceed 1. Default is 0.98.
+   * Equivalent to [MeshLambertMaterial.refractionRatio](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.refractionRatio).
+   */
   get refractionRatio(): number {
     return this.uniforms['refractionRatio'].value;
   }

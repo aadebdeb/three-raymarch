@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const phong_material_pars_fragment = `
 struct ObjectSpaceRaymarchPhongMaterial {
   vec3 diffuse;

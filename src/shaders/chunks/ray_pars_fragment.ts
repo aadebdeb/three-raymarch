@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const ray_pars_fragment = `
 struct Ray {
   vec3 origin;

@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const lights_fragment_begin = `
 GeometricContext geometry;
 vec3 mvPosition = (modelViewMatrix * vec4(position, 1.0)).xyz;

@@ -1,8 +1,10 @@
 {
+  "name": "Reference of three-raymarch",
   "out": "docs",
-  "mode": "modules",
+  "mode": "file",
   "includeDeclations": true,
   "excludeExternals": true,
   "excludeNotExported": true,
-  "excludePrivate": true
+  "excludePrivate": true,
+  "plugin": "typedoc-plugin-internal-external"
 }

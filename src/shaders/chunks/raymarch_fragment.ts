@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const raymarch_fragment = `
 Ray ray = convertRayFromWorldToObject(createRay());
 

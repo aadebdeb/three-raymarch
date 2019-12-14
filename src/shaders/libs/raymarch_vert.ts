@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const raymarch_vert = `
 varying vec3 vPosition;
 varying vec3 vRaymarchNormal;

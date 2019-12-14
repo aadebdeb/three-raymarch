@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const raymarch_basic_frag = `
 uniform vec3 diffuse;
 

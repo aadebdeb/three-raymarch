@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const raymarch_phong_frag = `
 uniform vec3 diffuse;
 uniform vec3 emissive;

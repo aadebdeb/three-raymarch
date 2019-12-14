@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const raymarch_normal_frag = `
 #include <packing>
 #include <raymarch_common_pars_fragment>

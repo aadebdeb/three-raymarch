@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const raymarch_matcap_frag = `
 uniform vec3 diffuse;
 uniform sampler2D matcap;

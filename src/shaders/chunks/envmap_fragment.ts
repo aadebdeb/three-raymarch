@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const envmap_fragment = `
 #ifdef USE_ENVMAP
 

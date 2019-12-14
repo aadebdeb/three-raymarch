@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const raymarch_fog_fragment = `
 #ifdef USE_FOG
 

@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const physical_material_pars_fragment = `
 struct ObjectSpaceRaymarchPhysicalMaterial {
   vec3 diffuse;

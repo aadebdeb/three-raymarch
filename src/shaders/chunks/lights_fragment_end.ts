@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const lights_fragment_end = `
 #if defined( RE_IndirectDiffuse )
 RE_IndirectDiffuse(irradiance, geometry, material, reflectedLight);

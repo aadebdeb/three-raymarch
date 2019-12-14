@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const raymarch_physical_frag = `
 #ifdef PHYSICAL
   #define REFLECTIVITY

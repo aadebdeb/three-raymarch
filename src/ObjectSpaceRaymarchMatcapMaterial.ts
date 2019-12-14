@@ -2,16 +2,39 @@ import { Texture, Color, UniformsLib, UniformsUtils } from 'three';
 import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from './ObjectSpaceRaymarchMaterial';
 import { RaymarchShaderChunk } from './shaders/RaymarchShaderChunk';
 
+/**
+ * Parameters of {@link ObjectSpaceRaymarchMatcapMaterial}.
+ */
 export interface ObjectSpaceRaymarchMatcapMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
-  /** Color of the material. */
-  color?: Color,
-  /** The matacp map */
-  matcap?: Texture,
+  /**
+   * Shader chunk which defines `float getDistance(vec3 p)` function.
+   * This function is used to estimate distance.
+   * 
+   * e.g.
+   * ```glsl
+   * float getDistance(vec3 p) {
+   *   p = mod(p, 0.5) - 0.25;
+   *   return length(p) - 0.1;
+   * }
+   * ```
+   */
   getDistanceChunk?: string,
+
+  /**
+   * Color of the material, by default set to white (0xffffff).
+   * Equivalent to [MeshMatcapMaterial.color](https://threejs.org/docs/index.html#api/en/materials/MeshMatcapMaterial.color).
+   */
+  color?: Color,
+
+  /**
+   * The matcap map. Default is null.
+   * Equivalent to [MeshMatcapMaterial.matcap](https://threejs.org/docs/index.html#api/en/materials/MeshMatcapMaterial.matcap).
+   */
+  matcap?: Texture,
 }
 
 /**
- * A material for object space raymarching equivalent to MeshMatcapMaterial.
+ * A material for object space raymarching equivalent to [MeshMatcapMaterial](https://threejs.org/docs/index.html#api/en/materials/MeshMatcapMaterial).
  */
 export class ObjectSpaceRaymarchMatcapMaterial extends ObjectSpaceRaymarchMaterial {
   constructor(parameters: ObjectSpaceRaymarchMatcapMaterialParameters = {}) {
@@ -38,7 +61,10 @@ export class ObjectSpaceRaymarchMatcapMaterial extends ObjectSpaceRaymarchMateri
     } 
   }
 
-  /** Color of the material. */
+  /**
+   * Color of the material, by default set to white (0xffffff).
+   * Equivalent to [MeshMatcapMaterial.color](https://threejs.org/docs/index.html#api/en/materials/MeshMatcapMaterial.color).
+   */
   get color(): Color {
     return this.uniforms['diffuse'].value;
   }
@@ -47,15 +73,14 @@ export class ObjectSpaceRaymarchMatcapMaterial extends ObjectSpaceRaymarchMateri
     this.uniforms['diffuse'].value = color.clone();
   }
 
-  /** The matacap map. */
+  /**
+   * The matcap map. Default is null.
+   * Equivalent to [MeshMatcapMaterial.matcap](https://threejs.org/docs/index.html#api/en/materials/MeshMatcapMaterial.matcap).
+   */
   get matcap(): Texture | null {
     return this.uniforms['matcap'].value;
   }
 
-  /**
-   * The matpcap map.
-   * #needsUpdate must be set true to apply the change.
-   */
   set matcap(matcap: Texture | null) {
     this.uniforms['matcap'].value = matcap;
   }

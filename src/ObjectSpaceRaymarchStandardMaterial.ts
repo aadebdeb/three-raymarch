@@ -2,28 +2,64 @@ import { Color, CubeTexture, UniformsUtils, UniformsLib, MultiplyOperation } fro
 import { ObjectSpaceRaymarchMaterial, ObjectSpaceRaymarchMaterialParameters } from './ObjectSpaceRaymarchMaterial';
 import { RaymarchShaderChunk } from './shaders/RaymarchShaderChunk';
 
+/**
+ * Parameters of {@link ObjectSpaceRaymarchStandardMaterial}.
+ */
 export interface ObjectSpaceRaymarchStandardMaterialParameters extends ObjectSpaceRaymarchMaterialParameters {
-  /** Color of the material. */
+  /**
+   * Shader chunk which defines `float getDistance(vec3 p)` function.
+   * This function is used to estimate distance.
+   * 
+   * e.g.
+   * ```glsl
+   * float getDistance(vec3 p) {
+   *   p = mod(p, 0.5) - 0.25;
+   *   return length(p) - 0.1;
+   * }
+   * ```
+   */
+  getDistanceChunk?: string,
+
+  getMaterialChunk?: string,
+
+  /**
+   * Color of the material, by default set to white (0xffffff).
+   * Equivalent to [MeshStandardMaterial.color](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial.color).
+   */
   color?: Color,
-  /** Emissive color of the material. */
+
+  /**
+   * Emissive (light) color of the material, essentially a solid color unaffected by other lighting. Default is black.
+   * Equivalent to [MeshStandardMaterial.emissive](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial.emissive).
+   */
   emissive?: Color,
-  /** How much the material is like a metal. */
+
+  /**
+   * How much the material is like a metal.
+   * Non-metallic materials such as wood or stone use 0.0, metallic use 1.0, with nothing (usually) in between.
+   * Default is 0.5. A value between 0.0 and 1.0 could be used for a rusty metal look.
+   * Equivalent to [MeshStandardMaterial.metalness](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial.metalness).
+   */
   metalness?: number,
-  /** How rough the material appears. */
+
+  /**
+   * How rough the material appears.
+   * 0.0 means a smooth mirror reflection, 1.0 means fully diffuse.
+   * Default is 0.5.
+   * Equivalent to [MeshStandardMaterial.roughness](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial.roughness).
+   */
   roughness?: number,
+
   envMap?: CubeTexture,
   reflectivity?: number,
   refractionRatio?: number,
   combine?: number,
-  getDistanceChunk?: string,
-  getMaterialChunk?: string,
 }
 
 /**
- * A material for object space raymarching equivalent to MeshStandardMaterial.
+ * A material for object space raymarching equivalent to [MeshStandardMaterial](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial).
  */
 export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMaterial {
-  combine: number;
   constructor(parameters: ObjectSpaceRaymarchStandardMaterialParameters = {}) {
     const overrideChunks: {[key: string]: string} = {};
     if (parameters.getDistanceChunk) {
@@ -60,7 +96,10 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
     this.fog = true;
   }
 
-  /** Color of the material. */
+  /**
+   * Color of the material, by default set to white (0xffffff).
+   * Equivalent to [MeshStandardMaterial.color](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial.color).
+   */
   get color(): Color {
     return this.uniforms['diffuse'].value;
   }
@@ -69,7 +108,10 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
     this.uniforms['diffuse'].value = color.clone();
   }
 
-  /** Emissive color of the material. */
+  /**
+   * Emissive (light) color of the material, essentially a solid color unaffected by other lighting. Default is black.
+   * Equivalent to [MeshStandardMaterial.emissive](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial.emissive).
+   */
   get emissive(): Color {
     return this.uniforms['emissive'].value;
   }
@@ -78,7 +120,12 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
     this.uniforms['emissive'].value = emissive.clone();
   }
 
-  /** How much the material is like a metal. */
+  /**
+   * How much the material is like a metal.
+   * Non-metallic materials such as wood or stone use 0.0, metallic use 1.0, with nothing (usually) in between.
+   * Default is 0.5. A value between 0.0 and 1.0 could be used for a rusty metal look.
+   * Equivalent to [MeshStandardMaterial.metalness](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial.metalness).
+   */
   get metalness(): number {
     return this.uniforms['metalness'].value;
   }
@@ -87,7 +134,12 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
     this.uniforms['metalness'].value = metalness;
   }
 
-  /** How rough the material appears. */
+  /**
+   * How rough the material appears.
+   * 0.0 means a smooth mirror reflection, 1.0 means fully diffuse.
+   * Default is 0.5.
+   * Equivalent to [MeshStandardMaterial.roughness](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial.roughness).
+   */
   get roughness(): number {
     return this.uniforms['roughness'].value;
   }
@@ -105,6 +157,8 @@ export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMate
     this.uniforms['envMap'].value = envMap;
     this.needsUpdate = true;
   }
+
+  combine: number;
 
   get reflectivity(): number {
     return this.uniforms['reflectivity'].value;

@@ -1,3 +1,6 @@
+/**
+ * @ignore
+ */
 export const raymarch_depth_frag = `
 #include <packing>
 #include <raymarch_fog_pars_fragment>
