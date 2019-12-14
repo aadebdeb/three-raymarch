@@ -30,7 +30,7 @@ export interface ObjectSpaceRaymarchMatcapMaterialParameters extends ObjectSpace
    * The matcap map. Default is null.
    * Equivalent to [MeshMatcapMaterial.matcap](https://threejs.org/docs/index.html#api/en/materials/MeshMatcapMaterial.matcap).
    */
-  matcap?: Texture,
+  matcap?: Texture | null,
 }
 
 /**

@@ -32,7 +32,7 @@ export interface ObjectSpaceRaymarchBasicMaterialParameters extends ObjectSpaceR
    * The environment map. Default is null.
    * Equivalent to [MeshBasicMaterial.envMap](https://threejs.org/docs/index.html#api/en/materials/MeshBasicMaterial.envMap).
    */
-  envMap?: CubeTexture,
+  envMap?: CubeTexture | null,
 
   /**
    * How much the environment map affects the surface; also see {@link ObjectSpaceRaymarchBasicMaterial.combine}.

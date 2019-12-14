@@ -50,7 +50,7 @@ export interface ObjectSpaceRaymarchStandardMaterialParameters extends ObjectSpa
    */
   roughness?: number,
 
-  envMap?: CubeTexture,
+  envMap?: CubeTexture | null,
   reflectivity?: number,
   refractionRatio?: number,
   combine?: number,

@@ -51,7 +51,7 @@ export interface ObjectSpaceRaymarchPhongMaterialParameters extends ObjectSpaceR
    * The environment map. Default is null.
    * Equivalent to [MeshPhongMaterial.envMap](https://threejs.org/docs/index.html#api/en/materials/MeshPhongMaterial.envMap).
    */
-  envMap?: CubeTexture,
+  envMap?: CubeTexture | null,
 
   /**
    * How to combine the result of the surface's color with the environment map, if any.

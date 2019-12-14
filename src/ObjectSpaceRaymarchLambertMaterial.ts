@@ -36,7 +36,7 @@ export interface ObjectSpaceRaymarchLambertMaterialParameters extends ObjectSpac
    * The environment map. Default is null.
    * Equivalent to [MeshLambertMaterial.envMap](https://threejs.org/docs/index.html#api/en/materials/MeshLambertMaterial.envMap).
    */
-  envMap?: CubeTexture,
+  envMap?: CubeTexture | null,
 
   /**
    * How to combine the result of the surface's color with the environment map, if any.
