@@ -35,6 +35,26 @@ export interface ObjectSpaceRaymarchMatcapMaterialParameters extends ObjectSpace
 
 /**
  * A material for object space raymarching equivalent to [MeshMatcapMaterial](https://threejs.org/docs/index.html#api/en/materials/MeshMatcapMaterial).
+ * 
+ * **Usage:**
+ * 
+ * ```typescript
+ * import { Scene, Vector3, Color, TextureLoader } from 'three';
+ * import { ObjectSpaceRaymarch, ObjectSpaceRaymarchMatcapMaterial } from 'three-raymarch';
+ * const material = new ObjectSpaceRaymarchMatcapMaterial({
+ *   getDistanceChunk: `
+ *     float getDistance(vec3 p) {
+ *     p = mod(p, 0.5) - 0.25;
+ *     return length(p) - 0.1;
+ *   }`,
+ *   size: new Vector3(5, 5, 5),
+ *   color: new Color(0x2194ce),
+ *   matcap: new TextureLoader().load('path/to/matcap/texture'),
+ * });
+ * const raymarch = new ObjectSpaceRaymarch(material);
+ * const scene = new Scene();
+ * scene.add(raymarch);
+ * ```
  */
 export class ObjectSpaceRaymarchMatcapMaterial extends ObjectSpaceRaymarchMaterial {
   constructor(parameters: ObjectSpaceRaymarchMatcapMaterialParameters = {}) {

@@ -58,6 +58,26 @@ export interface ObjectSpaceRaymarchStandardMaterialParameters extends ObjectSpa
 
 /**
  * A material for object space raymarching equivalent to [MeshStandardMaterial](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial).
+ *
+ * **Usage:**
+ * 
+ * ```typescript
+ * import { Scene, Vector3, Color } from 'three';
+ * import { ObjectSpaceRaymarch, ObjectSpaceRaymarchStandardMaterial } from 'three-raymarch';
+ * const material = new ObjectSpaceRaymarchStandardMaterial({
+ *   getDistanceChunk: `
+ *     float getDistance(vec3 p) {
+ *     p = mod(p, 0.5) - 0.25;
+ *     return length(p) - 0.1;
+ *   }`,
+ *   size: new Vector3(5, 5, 5),
+ *   metalness: 0.5,
+ *   roughness: 0.5,
+ * });
+ * const raymarch = new ObjectSpaceRaymarch(material);
+ * const scene = new Scene();
+ * scene.add(raymarch);
+ * ```
  */
 export class ObjectSpaceRaymarchStandardMaterial extends ObjectSpaceRaymarchMaterial {
   constructor(parameters: ObjectSpaceRaymarchStandardMaterialParameters = {}) {

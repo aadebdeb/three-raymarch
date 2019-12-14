@@ -77,6 +77,27 @@ export interface ObjectSpaceRaymarchPhongMaterialParameters extends ObjectSpaceR
 
 /**
  * A material for object space raymarching equivalent to [MeshPhongMaterial](https://threejs.org/docs/index.html#api/en/materials/MeshPhongMaterial).
+ * 
+ * **Usage:**
+ * 
+ * ```typescript
+ * import { Scene, Vector3, Color } from 'three';
+ * import { ObjectSpaceRaymarch, ObjectSpaceRaymarchPhongMaterial } from 'three-raymarch';
+ * const material = new ObjectSpaceRaymarchPhongMaterial({
+ *   getDistanceChunk: `
+ *     float getDistance(vec3 p) {
+ *     p = mod(p, 0.5) - 0.25;
+ *     return length(p) - 0.1;
+ *   }`,
+ *   size: new Vector3(5, 5, 5),
+ *   color: new Color(0x2194ce),
+ *   specular: new Color(0x111111),
+ *   shininess: 30,
+ * });
+ * const raymarch = new ObjectSpaceRaymarch(material);
+ * const scene = new Scene();
+ * scene.add(raymarch);
+ * ```
  */
 export class ObjectSpaceRaymarchPhongMaterial extends ObjectSpaceRaymarchMaterial {
   constructor(parameters: ObjectSpaceRaymarchPhongMaterialParameters = {}) {

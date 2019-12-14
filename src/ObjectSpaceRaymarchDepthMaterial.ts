@@ -31,6 +31,24 @@ export interface ObjectSpaceRaymarchDepthMaterialParameters extends ObjectSpaceR
 
 /**
  * A material for object space raymarching equivalent to [MeshDepthMaterial](https://threejs.org/docs/index.html#api/en/materials/MeshDepthMaterial).
+ * 
+ * **Usage:**
+ * 
+ * ```typescript
+ * import { Scene, Vector3, Color } from 'three';
+ * import { ObjectSpaceRaymarch, ObjectSpaceRaymarchDepthMaterial } from 'three-raymarch';
+ * const material = new ObjectSpaceRaymarchDepthMaterial({
+ *   getDistanceChunk: `
+ *     float getDistance(vec3 p) {
+ *     p = mod(p, 0.5) - 0.25;
+ *     return length(p) - 0.1;
+ *   }`,
+ *   size: new Vector3(5, 5, 5),
+ * });
+ * const raymarch = new ObjectSpaceRaymarch(material);
+ * const scene = new Scene();
+ * scene.add(raymarch);
+ * ```
  */
 export class ObjectSpaceRaymarchDepthMaterial extends ObjectSpaceRaymarchMaterial {
   constructor(parameters: ObjectSpaceRaymarchDepthMaterialParameters = {}) {
